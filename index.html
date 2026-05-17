@@ -257,38 +257,27 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 
 /* ── 4 WORKFLOW END-TO-END ── */
 .wf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.wf-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 18px;box-shadow:var(--shadow-s);position:relative;transition:transform .2s}
+.wf-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow-s);position:relative;transition:transform .2s;display:flex;flex-direction:column}
 .wf-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-m)}
-.wf-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.wf-cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);background:var(--purple-l);padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:10px;font-weight:600}
-.wf-card h3{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.wf-thumb{background:var(--light);border-radius:var(--r-s);overflow:hidden;margin-bottom:12px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.wf-thumb img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.wf-cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);background:var(--purple-l);padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px;font-weight:600;align-self:flex-start}
+.wf-card h3{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;margin-bottom:6px;color:var(--text)}
 .wf-card p{font-size:13px;color:var(--muted);line-height:1.55}
 
-/* ── DOCUMENT MOCKUP (Month-End Close) ── */
-.doc-mock{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-l);overflow:hidden;max-width:920px;margin:0 auto}
-.doc-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:linear-gradient(135deg,#FAFAF8,#F3F1EE);border-bottom:1px solid var(--border)}
-.doc-title{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--text)}
-.doc-sub{font-size:12px;color:var(--muted);margin-top:3px}
-.doc-badge{background:var(--wa);color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px}
-.doc-body{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.doc-section{background:var(--light);border-radius:var(--r-s);padding:14px 16px;border-left:3px solid var(--purple)}
-.doc-section.doc-anom{border-left-color:var(--red);background:var(--red-l);grid-column:span 2}
-.doc-sec-h{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;margin-bottom:8px;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
-.doc-sec-c{font-size:13px;color:var(--text);line-height:1.6}
-.doc-rec{display:flex;flex-direction:column;gap:6px}
-.doc-rec-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--border)}
-.doc-rec-row:last-child{border:none}
-.doc-ok{color:var(--wa-d);font-weight:700}
+/* ── HERO OUTPUT IMAGE ── */
+.hero-output{max-width:780px;margin:0 auto;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-l);border:1px solid var(--border);background:var(--white)}
+.hero-output img{width:100%;height:auto;display:block}
 
 /* ── TESTIMONIANZE ── */
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.testi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;box-shadow:var(--shadow-s);position:relative}
-.testi-quote{position:absolute;top:-8px;left:18px;font-family:'Outfit',sans-serif;font-size:80px;color:var(--purple-m);line-height:1;font-weight:900}
-.testi-text{font-size:15px;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:18px;margin-top:18px;position:relative;z-index:1}
-.testi-author{display:flex;align-items:center;gap:12px}
-.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;flex-shrink:0}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;box-shadow:var(--shadow-s);display:flex;flex-direction:column}
+.testi-logo{height:42px;display:flex;align-items:center;margin-bottom:16px}
+.testi-logo img{max-height:36px;max-width:160px;width:auto;object-fit:contain}
+.testi-text{font-size:15px;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:18px;flex-grow:1}
+.testi-author{padding-top:14px;border-top:1px solid var(--border)}
 .testi-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:var(--text)}
-.testi-role{font-size:12px;color:var(--muted)}
+.testi-role{font-size:12px;color:var(--muted);margin-top:2px}
 
 /* ── SB DEMO ── */
 .sb-demo-wrap{width:100%;max-width:1100px}
@@ -1004,17 +993,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
         </div>
       </div>
       <div>
-        <div class="anim-up d2" style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">7 integrazioni native</div>
-        <div class="int-grid anim-up d3">
-          <div class="int-item"><div class="int-ico" style="background:#2CA01C">QB</div>QuickBooks</div>
-          <div class="int-item"><div class="int-ico" style="background:#003087">PP</div>PayPal</div>
-          <div class="int-item"><div class="int-ico" style="background:#FF7A59">HS</div>HubSpot</div>
-          <div class="int-item"><div class="int-ico" style="background:#00C4CC">C</div>Canva</div>
-          <div class="int-item"><div class="int-ico" style="background:#FF5722">DS</div>DocuSign</div>
-          <div class="int-item"><div class="int-ico" style="background:#4285F4">G</div>Google Workspace</div>
-          <div class="int-item"><div class="int-ico" style="background:#D83B01">M</div>Microsoft 365</div>
-          <div class="int-item"><div class="int-ico" style="background:#4A154B">S</div>Slack</div>
-        </div>
+        <div class="anim-up d2" style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">9 integrazioni native</div>
+        <img src="images/smb-connectors.webp" alt="Integrazioni: Gmail, Microsoft 365, PayPal, QuickBooks, Canva, Google Calendar, Docusign, Slack, HubSpot" class="anim-up d3" style="width:100%;max-width:340px;border-radius:var(--r);background:var(--light);padding:14px;display:block;margin-bottom:14px">
         <div class="card anim-up d4" style="background:linear-gradient(135deg,var(--purple-l),#E5DEFF);border-color:var(--purple-m);margin-bottom:12px">
           <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:6px">🛡️ Sicurezza e controllo</div>
           <div style="font-size:12px;color:var(--text);line-height:1.55">Claude propone ogni azione. <strong>Tu approvi</strong> prima che invii email, generi fatture o modifichi dati.</div>
@@ -1036,28 +1016,28 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
     <p class="sub anim-up d2" style="margin-bottom:28px">Claude non si limita a rispondere a domande. Porta a termine processi completi mentre tu resti concentrato sulle decisioni.</p>
     <div class="wf-grid anim-up d3">
       <div class="wf-card">
-        <div class="wf-ico" style="background:linear-gradient(135deg,#2CA01C,#1E7B16)">💸</div>
+        <div class="wf-thumb"><img src="images/smb-payroll.webp" alt="Pianificazione paghe — Excel con riconciliazione QuickBooks/PayPal"></div>
         <div class="wf-cmd">/plan-payroll</div>
         <h3>Pianificazione paghe</h3>
-        <p>Riconcilia liquidità QuickBooks vs PayPal, classifica le fatture scadute, prepara le email promemoria.</p>
+        <p>Riconcilia QuickBooks vs PayPal, classifica fatture scadute, prepara email promemoria.</p>
       </div>
       <div class="wf-card">
-        <div class="wf-ico" style="background:linear-gradient(135deg,#6B48FF,#4F35CC)">📊</div>
+        <div class="wf-thumb"><img src="images/smb-progress.webp" alt="Chiusura mese — checklist Progress in Claude"></div>
         <div class="wf-cmd">/close-month</div>
         <h3>Chiusura mese</h3>
-        <p>Riconcilia transazioni, segnala anomalie, produce P&L narrativo pronto per il commercialista.</p>
+        <p>Riconcilia transazioni, segnala anomalie, produce P&L narrativo per il commercialista.</p>
       </div>
       <div class="wf-card">
-        <div class="wf-ico" style="background:linear-gradient(135deg,#E85D24,#C44818)">☀️</div>
+        <div class="wf-thumb"><img src="images/smb-morning-brief.webp" alt="Brief mattutino — messaggio Slack con cash, pipeline, agenda"></div>
         <div class="wf-cmd">/monday-brief</div>
         <h3>Brief mattutino</h3>
-        <p>Posizione cassa, incassi in arrivo, movimento pipeline e agenda settimanale ogni lunedì alle 8:30.</p>
+        <p>Cash, incassi in arrivo, pipeline e agenda settimanale ogni lunedì alle 8:30 su Slack.</p>
       </div>
       <div class="wf-card">
-        <div class="wf-ico" style="background:linear-gradient(135deg,#FF7A59,#E85F3D)">🎯</div>
+        <div class="wf-thumb"><img src="images/smb-campaign.webp" alt="Campagna marketing — email Spring Offer generata e pronta all'invio"></div>
         <div class="wf-cmd">/run-campaign</div>
         <h3>Campagna marketing</h3>
-        <p>Analizza il mese debole, pianifica la promo, genera asset Canva, segmenta lista HubSpot e invia.</p>
+        <p>Analizza il mese debole, genera asset Canva, segmenta lista HubSpot e prepara l'invio.</p>
       </div>
     </div>
     <div class="anim-up d4" style="text-align:center;margin-top:24px">
@@ -1069,39 +1049,16 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S16: OUTPUT REALE — MONTH-END CLOSE ══ -->
+<!-- ══ S16: OUTPUT REALE — MORNING BRIEF SU SLACK ══ -->
 <div class="slide" id="s16">
   <div class="si">
-    <div class="label purple anim-up">📄 Output reale</div>
+    <div class="label purple anim-up">📄 Output reale — Anthropic</div>
     <h2 class="med anim-up d1">Cosa Claude <span style="color:var(--purple)">consegna davvero</span></h2>
-    <p class="sub anim-up d2" style="margin-bottom:24px">Esempio: chiusura mese di Marzo 2026. Non un'idea, un documento pronto per il commercialista.</p>
-    <div class="doc-mock anim-up d3">
-      <div class="doc-header">
-        <div class="doc-meta">
-          <div class="doc-title">March 2026 — Month-End Close</div>
-          <div class="doc-sub">Generato da Claude · 1 aprile 2026 · 08:14</div>
-        </div>
-        <div class="doc-badge">✓ Pronto</div>
-      </div>
-      <div class="doc-body">
-        <div class="doc-section">
-          <div class="doc-sec-h">📈 P&amp;L Narrative</div>
-          <div class="doc-sec-c">Ricavi €47.320 (+12% MoM). Margine lordo 68% (stabile). 3 clienti enterprise hanno generato il 41% del fatturato. Spese marketing +€2.100 (campagna riattivazione WhatsApp). EBITDA €18.900.</div>
-        </div>
-        <div class="doc-section">
-          <div class="doc-sec-h">🔄 Riconciliazione</div>
-          <div class="doc-rec">
-            <div class="doc-rec-row"><span>QuickBooks</span><span class="doc-ok">✓ 142 transazioni</span></div>
-            <div class="doc-rec-row"><span>PayPal</span><span class="doc-ok">✓ 38 incassi</span></div>
-            <div class="doc-rec-row"><span>Stripe</span><span class="doc-ok">✓ 24 abbonamenti</span></div>
-          </div>
-        </div>
-        <div class="doc-section doc-anom">
-          <div class="doc-sec-h">⚠️ Anomalie segnalate (2)</div>
-          <div class="doc-sec-c">• Fattura #2034 (€890): doppia registrazione in QB e PayPal — richiede verifica<br>• Transazione PayPal 27/03 (€1.240): categoria mancante</div>
-        </div>
-      </div>
+    <p class="sub anim-up d2" style="margin-bottom:20px">Brief mattutino del lunedì, recapitato su Slack: cassa, pipeline, agenda e priorità del giorno. Pronto in 30 secondi.</p>
+    <div class="hero-output anim-up d3">
+      <img src="images/smb-morning-brief.webp" alt="Brief mattutino consegnato da Claude su Slack: cash, PayPal in-flight, pipeline, settimana, priorità">
     </div>
+    <div class="anim-up d4" style="text-align:center;margin-top:18px;font-size:13px;color:var(--muted)">Screenshot ufficiale — claude.com/solutions/small-business</div>
   </div>
 </div>
 
@@ -1113,36 +1070,27 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
     <p class="sub anim-up d2" style="margin-bottom:28px">Piccole imprese che hanno integrato Claude per gestire flussi di lavoro completi.</p>
     <div class="testi-grid anim-up d3">
       <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Non solo ha risolto i problemi, mi ha mostrato anche quelli che non sapevo di avere.</p>
+        <div class="testi-logo"><img src="images/logo-puritycoffee.png" alt="Purity Coffee"></div>
+        <p class="testi-text">"Non solo ha risolto i problemi, mi ha mostrato anche quelli che non sapevo di avere."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#92400E,#78350F)">PC</div>
-          <div>
-            <div class="testi-name">Brian Ludviksen</div>
-            <div class="testi-role">Purity Coffee</div>
-          </div>
+          <div class="testi-name">Brian Ludviksen</div>
+          <div class="testi-role">Purity Coffee</div>
         </div>
       </div>
       <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Libera tempo dal lavoro tedioso, mi permette di concentrarmi su attività a maggior valore.</p>
+        <div class="testi-logo"><img src="images/logo-midcentral.svg" alt="MidCentral Energy"></div>
+        <p class="testi-text">"Libera tempo dal lavoro tedioso, mi permette di concentrarmi su attività a maggior valore."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#1E40AF,#1E3A8A)">ME</div>
-          <div>
-            <div class="testi-name">Ryan Olson</div>
-            <div class="testi-role">MidCentral Energy</div>
-          </div>
+          <div class="testi-name">Ryan Olson</div>
+          <div class="testi-role">MidCentral Energy</div>
         </div>
       </div>
       <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text">Rimuove i vincoli che avevamo prima. Il lavoro è semplicemente più efficiente.</p>
+        <div class="testi-logo"><img src="images/logo-simplemodern.svg" alt="Simple Modern"></div>
+        <p class="testi-text">"Rimuove i vincoli che avevamo prima. Il lavoro è semplicemente più efficiente."</p>
         <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#065F46,#064E3B)">SM</div>
-          <div>
-            <div class="testi-name">Mike Beckham</div>
-            <div class="testi-role">Simple Modern</div>
-          </div>
+          <div class="testi-name">Mike Beckham</div>
+          <div class="testi-role">Simple Modern</div>
         </div>
       </div>
     </div>
