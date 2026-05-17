@@ -255,6 +255,41 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .install-bar .dot-r,.install-bar .dot-y,.install-bar .dot-g{width:8px;height:8px;border-radius:50%}
 .install-bar .dot-r{background:#FF5F57}.install-bar .dot-y{background:#FFBD2E}.install-bar .dot-g{background:#28C840}
 
+/* ── 4 WORKFLOW END-TO-END ── */
+.wf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.wf-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 18px;box-shadow:var(--shadow-s);position:relative;transition:transform .2s}
+.wf-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-m)}
+.wf-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin-bottom:14px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.wf-cmd{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple);background:var(--purple-l);padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:10px;font-weight:600}
+.wf-card h3{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.wf-card p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ── DOCUMENT MOCKUP (Month-End Close) ── */
+.doc-mock{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-l);overflow:hidden;max-width:920px;margin:0 auto}
+.doc-header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:linear-gradient(135deg,#FAFAF8,#F3F1EE);border-bottom:1px solid var(--border)}
+.doc-title{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--text)}
+.doc-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.doc-badge{background:var(--wa);color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px}
+.doc-body{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.doc-section{background:var(--light);border-radius:var(--r-s);padding:14px 16px;border-left:3px solid var(--purple)}
+.doc-section.doc-anom{border-left-color:var(--red);background:var(--red-l);grid-column:span 2}
+.doc-sec-h{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;margin-bottom:8px;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.doc-sec-c{font-size:13px;color:var(--text);line-height:1.6}
+.doc-rec{display:flex;flex-direction:column;gap:6px}
+.doc-rec-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--border)}
+.doc-rec-row:last-child{border:none}
+.doc-ok{color:var(--wa-d);font-weight:700}
+
+/* ── TESTIMONIANZE ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;box-shadow:var(--shadow-s);position:relative}
+.testi-quote{position:absolute;top:-8px;left:18px;font-family:'Outfit',sans-serif;font-size:80px;color:var(--purple-m);line-height:1;font-weight:900}
+.testi-text{font-size:15px;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:18px;margin-top:18px;position:relative;z-index:1}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;flex-shrink:0}
+.testi-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:var(--text)}
+.testi-role{font-size:12px;color:var(--muted)}
+
 /* ── SB DEMO ── */
 .sb-demo-wrap{width:100%;max-width:1100px}
 .sb-demo-input{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;box-shadow:var(--shadow-s);display:flex;align-items:center;gap:18px}
@@ -387,7 +422,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .garanzia-bar span{font-size:12px;color:var(--muted)}
 
 /* ── CTA ── */
-#s27{background:radial-gradient(ellipse at bottom left,var(--purple-l) 0%,#FFF8F4 40%,#FFF0E5 100%)}
+#s30{background:radial-gradient(ellipse at bottom left,var(--purple-l) 0%,#FFF8F4 40%,#FFF0E5 100%)}
 .cta-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;max-width:1300px;width:100%}
 .cta-photo{border-radius:var(--r-l);overflow:hidden;box-shadow:var(--shadow-xl)}
 .cta-photo img{width:100%;display:block;object-fit:cover;aspect-ratio:.92}
@@ -544,7 +579,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
   <div class="nav-right">
     <div id="timer-badge">⏱ 60 min</div>
-    <div id="counter">1 / 27</div>
+    <div id="counter">1 / 30</div>
   </div>
 </div>
 
@@ -993,8 +1028,134 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S14: SB DEMO ══ -->
+<!-- ══ S15: 4 WORKFLOW END-TO-END ══ -->
 <div class="slide" id="s15">
+  <div class="si">
+    <div class="label purple anim-up">🚀 Non risponde — esegue</div>
+    <h2 class="med anim-up d1">4 workflow <span style="color:var(--purple)">end-to-end</span> pronti all'uso</h2>
+    <p class="sub anim-up d2" style="margin-bottom:28px">Claude non si limita a rispondere a domande. Porta a termine processi completi mentre tu resti concentrato sulle decisioni.</p>
+    <div class="wf-grid anim-up d3">
+      <div class="wf-card">
+        <div class="wf-ico" style="background:linear-gradient(135deg,#2CA01C,#1E7B16)">💸</div>
+        <div class="wf-cmd">/plan-payroll</div>
+        <h3>Pianificazione paghe</h3>
+        <p>Riconcilia liquidità QuickBooks vs PayPal, classifica le fatture scadute, prepara le email promemoria.</p>
+      </div>
+      <div class="wf-card">
+        <div class="wf-ico" style="background:linear-gradient(135deg,#6B48FF,#4F35CC)">📊</div>
+        <div class="wf-cmd">/close-month</div>
+        <h3>Chiusura mese</h3>
+        <p>Riconcilia transazioni, segnala anomalie, produce P&L narrativo pronto per il commercialista.</p>
+      </div>
+      <div class="wf-card">
+        <div class="wf-ico" style="background:linear-gradient(135deg,#E85D24,#C44818)">☀️</div>
+        <div class="wf-cmd">/monday-brief</div>
+        <h3>Brief mattutino</h3>
+        <p>Posizione cassa, incassi in arrivo, movimento pipeline e agenda settimanale ogni lunedì alle 8:30.</p>
+      </div>
+      <div class="wf-card">
+        <div class="wf-ico" style="background:linear-gradient(135deg,#FF7A59,#E85F3D)">🎯</div>
+        <div class="wf-cmd">/run-campaign</div>
+        <h3>Campagna marketing</h3>
+        <p>Analizza il mese debole, pianifica la promo, genera asset Canva, segmenta lista HubSpot e invia.</p>
+      </div>
+    </div>
+    <div class="anim-up d4" style="text-align:center;margin-top:24px">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:var(--purple-l);padding:12px 24px;border-radius:var(--r-s);border:1px solid var(--purple-m)">
+        <span style="font-size:20px">🛡️</span>
+        <span style="font-size:15px;font-weight:600;color:var(--purple)">Tu approvi prima che invii email, generi fatture o modifichi dati</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S16: OUTPUT REALE — MONTH-END CLOSE ══ -->
+<div class="slide" id="s16">
+  <div class="si">
+    <div class="label purple anim-up">📄 Output reale</div>
+    <h2 class="med anim-up d1">Cosa Claude <span style="color:var(--purple)">consegna davvero</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:24px">Esempio: chiusura mese di Marzo 2026. Non un'idea, un documento pronto per il commercialista.</p>
+    <div class="doc-mock anim-up d3">
+      <div class="doc-header">
+        <div class="doc-meta">
+          <div class="doc-title">March 2026 — Month-End Close</div>
+          <div class="doc-sub">Generato da Claude · 1 aprile 2026 · 08:14</div>
+        </div>
+        <div class="doc-badge">✓ Pronto</div>
+      </div>
+      <div class="doc-body">
+        <div class="doc-section">
+          <div class="doc-sec-h">📈 P&amp;L Narrative</div>
+          <div class="doc-sec-c">Ricavi €47.320 (+12% MoM). Margine lordo 68% (stabile). 3 clienti enterprise hanno generato il 41% del fatturato. Spese marketing +€2.100 (campagna riattivazione WhatsApp). EBITDA €18.900.</div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-sec-h">🔄 Riconciliazione</div>
+          <div class="doc-rec">
+            <div class="doc-rec-row"><span>QuickBooks</span><span class="doc-ok">✓ 142 transazioni</span></div>
+            <div class="doc-rec-row"><span>PayPal</span><span class="doc-ok">✓ 38 incassi</span></div>
+            <div class="doc-rec-row"><span>Stripe</span><span class="doc-ok">✓ 24 abbonamenti</span></div>
+          </div>
+        </div>
+        <div class="doc-section doc-anom">
+          <div class="doc-sec-h">⚠️ Anomalie segnalate (2)</div>
+          <div class="doc-sec-c">• Fattura #2034 (€890): doppia registrazione in QB e PayPal — richiede verifica<br>• Transazione PayPal 27/03 (€1.240): categoria mancante</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S17: TESTIMONIANZE REALI ══ -->
+<div class="slide" id="s17">
+  <div class="si">
+    <div class="label purple anim-up">⭐ Storie reali</div>
+    <h2 class="med anim-up d1">Quello che dicono <span style="color:var(--purple)">i clienti Claude</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:28px">Piccole imprese che hanno integrato Claude per gestire flussi di lavoro completi.</p>
+    <div class="testi-grid anim-up d3">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Non solo ha risolto i problemi, mi ha mostrato anche quelli che non sapevo di avere.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#92400E,#78350F)">PC</div>
+          <div>
+            <div class="testi-name">Brian Ludviksen</div>
+            <div class="testi-role">Purity Coffee</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Libera tempo dal lavoro tedioso, mi permette di concentrarmi su attività a maggior valore.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#1E40AF,#1E3A8A)">ME</div>
+          <div>
+            <div class="testi-name">Ryan Olson</div>
+            <div class="testi-role">MidCentral Energy</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Rimuove i vincoli che avevamo prima. Il lavoro è semplicemente più efficiente.</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#065F46,#064E3B)">SM</div>
+          <div>
+            <div class="testi-name">Mike Beckham</div>
+            <div class="testi-role">Simple Modern</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="anim-up d4" style="text-align:center;margin-top:24px">
+      <div style="display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:13px">
+        <span>Fonte:</span><span style="font-weight:600">claude.com/solutions/small-business</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S18: SB DEMO ══ -->
+<div class="slide" id="s18">
   <div class="si sb-demo-wrap">
     <div class="label purple anim-up">🎬 Demo interattiva — Plugin Small Business</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Scenario: <span style="color:var(--purple)">/monday-brief</span></h2>
@@ -1017,7 +1178,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S15: TRANSITION — MODULO WA ══ -->
-<div class="slide" id="s16" style="background:radial-gradient(ellipse at center,#EDFBF3 0%,var(--bg) 70%)">
+<div class="slide" id="s19" style="background:radial-gradient(ellipse at center,#EDFBF3 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">💬</div>
     <h2 class="transition-h anim-up d1">Modulo 3<br><span style="color:var(--wa-d)">WhatsApp + Claude</span></h2>
@@ -1032,7 +1193,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S16: WA INTRO ══ -->
-<div class="slide" id="s17">
+<div class="slide" id="s20">
   <div class="si">
     <div class="label green anim-up">Modulo 3 — WhatsApp + Claude</div>
     <div class="wa-layout">
@@ -1070,7 +1231,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S17: WA FLOW ══ -->
-<div class="slide" id="s18">
+<div class="slide" id="s21">
   <div class="si flow-wrap">
     <div class="label green anim-up">🎬 Demo — Flusso WhatsApp Meta Cloud API</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Come funziona l'automazione end-to-end</h2>
@@ -1102,7 +1263,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S18: MESSAGGI MASSIVI RIATTIVAZIONE WA + COWORK ══ -->
-<div class="slide" id="s19">
+<div class="slide" id="s22">
   <div class="si">
     <div class="label green anim-up">📢 Automazione — Riattivazione contatti</div>
     <h2 class="med anim-up d1">Messaggi massivi di riattivazione<br><span style="color:var(--wa-d)">con WhatsApp + Claude Cowork</span></h2>
@@ -1148,7 +1309,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S19: REMIND APPUNTAMENTI (era recupero carrelli) ══ -->
-<div class="slide" id="s20">
+<div class="slide" id="s23">
   <div class="si">
     <div class="label green anim-up">📅 Automazione — Remind appuntamenti</div>
     <h2 class="med anim-up d1" style="margin-bottom:16px">Remind automatico appuntamenti<br><span style="color:var(--wa-d)">via WhatsApp</span></h2>
@@ -1185,7 +1346,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S20: RICHIESTA RECENSIONI ══ -->
-<div class="slide" id="s21">
+<div class="slide" id="s24">
   <div class="si">
     <div class="label green anim-up">⭐ Automazione — Richiesta recensioni</div>
     <h2 class="med anim-up d1" style="margin-bottom:16px">Recensioni Google automatiche<br><span style="color:var(--wa-d)">via WhatsApp post-servizio</span></h2>
@@ -1227,7 +1388,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S21: TRANSITION — CONCLUSIONE ══ -->
-<div class="slide" id="s22" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
+<div class="slide" id="s25" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">🚀</div>
     <h2 class="transition-h anim-up d1">Ora hai visto<br><span style="color:var(--orange)">il potenziale</span></h2>
@@ -1241,7 +1402,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S22: PIANO D'AZIONE ══ -->
-<div class="slide" id="s23">
+<div class="slide" id="s26">
   <div class="si">
     <div class="label anim-up">🎯 Piano d'azione</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Da domani: <span style="color:var(--orange)">cosa fare per iniziare</span></h2>
@@ -1279,7 +1440,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S23: ERRORI ══ -->
-<div class="slide" id="s24">
+<div class="slide" id="s27">
   <div class="si">
     <div class="label anim-up">⚠️ Attenzione</div>
     <h2 class="med anim-up d1" style="margin-bottom:20px">I 3 errori che fanno fallire<br><span style="color:var(--orange)">ogni progetto di automazione</span></h2>
@@ -1304,7 +1465,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S24: SERVIZI ══ -->
-<div class="slide" id="s25">
+<div class="slide" id="s28">
   <div class="si">
     <div class="label anim-up">🚀 I miei servizi</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Cosa posso fare <span style="color:var(--orange)">per la tua azienda</span></h2>
@@ -1351,7 +1512,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S25: PIANI ══ -->
-<div class="slide" id="s26">
+<div class="slide" id="s29">
   <div class="si">
     <div class="label anim-up">💼 Come lavoriamo insieme</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Tre modalità, <span style="color:var(--orange)">un obiettivo</span></h2>
@@ -1412,7 +1573,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- ══ S26: CTA ══ -->
-<div class="slide" id="s27">
+<div class="slide" id="s30">
   <div class="cta-layout">
     <div class="cta-photo anim-up d1">
       <img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao">
@@ -1445,7 +1606,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <script>
-const TOTAL = 27;
+const TOTAL = 30;
 let cur = 1, d1r = false, d2r = false, d3r = false;
 
 function goTo(n) {
@@ -1470,7 +1631,7 @@ function updateDots() {
     d.onclick = () => goTo(i); dc.appendChild(d);
   }
 }
-const timings = [0,1,1,1,3,4,5,3,1,4,6,4,1,3,4,6,1,3,6,4,4,4,1,4,4,3,3,4,3];
+const timings = [0,1,1,1,3,4,5,3,1,4,6,4,1,3,4,3,4,3,6,1,3,6,4,4,4,1,4,4,3,3,4,3];
 function updateTimer() {
   const elapsed = timings.slice(0, cur).reduce((a,b)=>a+b,0);
   const rem = Math.max(0, 75 - elapsed);
