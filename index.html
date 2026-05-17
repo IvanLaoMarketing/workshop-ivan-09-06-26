@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il tuo Assistente AI che Lavora per Te — Ivan Lao</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F9F7F4;--white:#FFFFFF;--text:#1C1917;--muted:#78716C;--light:#F3F1EE;--border:#E7E5E0;
+  --orange:#E85D24;--orange-l:#FEF0EA;--orange-m:#FDCFBC;
+  --purple:#6B48FF;--purple-l:#F0EDFF;--purple-m:#C4B8FF;
+  --wa:#25D366;--wa-l:#EDFBF3;--wa-m:#A8E6C1;--wa-d:#16A34A;
+  --meta:#1877F2;--meta-l:#EBF2FF;
+  --red:#DC2626;--red-l:#FFF5F5;--red-m:#FECACA;
+  --shadow-s:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-m:0 4px 16px rgba(0,0,0,.08);
+  --shadow-l:0 16px 50px rgba(0,0,0,.12);
+  --shadow-xl:0 25px 70px rgba(0,0,0,.15);
+  --r:18px;--r-s:12px;--r-l:28px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh;width:100vw;user-select:none;font-size:20px}
+
+#prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--orange),#FF8B5C);transition:width .4s ease;z-index:200;border-radius:0 4px 4px 0;box-shadow:0 0 12px rgba(232,93,36,.4)}
+
+#topnav{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(249,247,244,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);z-index:100}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{height:42px;width:auto;object-fit:contain;display:block}
+.nav-logo .nav-text{font-family:'Outfit',sans-serif;font-weight:700;font-size:14px;color:var(--muted);letter-spacing:.3px}
+.nav-right{display:flex;align-items:center;gap:18px}
+#counter{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:500}
+#timer-badge{font-size:13px;color:var(--muted);background:var(--light);padding:6px 14px;border-radius:20px;border:1px solid var(--border);font-weight:500}
+
+#slides{position:fixed;top:64px;left:0;right:0;bottom:66px;overflow:hidden}
+.slide{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:40px 60px;background:var(--bg);opacity:0;transform:translateX(60px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;overflow-y:auto;overflow-x:hidden}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;z-index:2}
+.slide.exit{opacity:0;transform:translateX(-60px)}
+
+#botnav{position:fixed;bottom:0;left:0;right:0;height:66px;display:flex;align-items:center;justify-content:center;gap:18px;background:rgba(249,247,244,.95);backdrop-filter:blur(14px);border-top:1px solid var(--border);z-index:100}
+.nbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text);transition:all .2s;box-shadow:var(--shadow-s)}
+.nbtn:hover{background:var(--orange);color:#fff;border-color:var(--orange);transform:scale(1.08)}
+.nbtn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+#dots{display:flex;gap:6px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:all .2s;cursor:pointer}
+.dot.active{background:var(--orange);width:24px;border-radius:4px}
+
+.si{width:100%;max-width:1500px;margin:0 auto}
+.label{font-size:15px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--orange);margin-bottom:14px;display:inline-flex;align-items:center;gap:8px}
+.label.purple{color:var(--purple)}.label.green{color:var(--wa-d)}.label.red{color:var(--red)}
+h2.med{font-family:'Outfit',sans-serif;font-size:56px;font-weight:900;line-height:1.08;letter-spacing:-1.8px;color:var(--text);margin-bottom:18px}
+p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-width:780px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-s);transition:all .25s}
+.card:hover{box-shadow:var(--shadow-m);transform:translateY(-2px)}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:600;padding:8px 16px;border-radius:20px}
+.badge.o{background:var(--orange-l);color:var(--orange);border:1px solid var(--orange-m)}
+.badge.p{background:var(--purple-l);color:var(--purple);border:1px solid var(--purple-m)}
+.badge.g{background:var(--wa-l);color:var(--wa-d);border:1px solid var(--wa-m)}
+.badge.r{background:var(--red-l);color:var(--red);border:1px solid var(--red-m)}
+
+.slide.active .anim-up{animation:slideUp .6s cubic-bezier(.2,.7,.3,1) both}
+.slide.active .anim-up.d1{animation-delay:.1s}
+.slide.active .anim-up.d2{animation-delay:.2s}
+.slide.active .anim-up.d3{animation-delay:.3s}
+.slide.active .anim-up.d4{animation-delay:.4s}
+.slide.active .anim-up.d5{animation-delay:.5s}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ── S1: REGISTRAZIONE ── */
+.rec-wrap{text-align:center;max-width:900px;width:100%}
+.rec-placeholder{background:var(--white);border:2px dashed var(--border);border-radius:var(--r-l);padding:60px 40px;margin-bottom:24px;position:relative;overflow:hidden}
+.rec-placeholder::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(232,93,36,.03),rgba(107,72,255,.03));pointer-events:none}
+.rec-play-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#FF8B5C);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 30px rgba(232,93,36,.3);font-size:36px;color:#fff}
+.rec-h{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;margin-bottom:12px;letter-spacing:-1px}
+.rec-sub{font-size:17px;color:var(--muted);line-height:1.6;max-width:600px;margin:0 auto}
+
+/* ── S2: PRIVACY ── */
+.privacy-wrap{text-align:center;max-width:1000px;width:100%}
+.privacy-wrap img{width:100%;max-width:900px;border-radius:var(--r-l);box-shadow:var(--shadow-l)}
+
+/* ── S3: COVER ── */
+#s3{background:radial-gradient(ellipse at top right,#F0EDFF 0%,#FFF8F4 30%,#F9F7F4 60%,#FFF0E5 100%)}
+.cover-wrap{text-align:center;max-width:1100px;width:100%;position:relative}
+.cover-wrap::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(232,93,36,.06) 0%,transparent 70%);z-index:0;animation:float 6s ease-in-out infinite}
+.cover-wrap > *{position:relative;z-index:1}
+.cover-h1{font-family:'Outfit',sans-serif;font-size:clamp(52px,6.5vw,100px);font-weight:900;line-height:.98;letter-spacing:-3.5px;margin-bottom:24px;color:var(--text)}
+.cover-h1 em{font-style:normal;background:linear-gradient(135deg,var(--orange) 0%,#FF8B5C 50%,var(--purple) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.cover-sub{font-size:clamp(17px,1.5vw,22px);color:var(--muted);line-height:1.55;max-width:760px;margin:0 auto 32px;font-weight:400}
+.speaker-pill{display:inline-flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:60px;padding:10px 28px 10px 10px;box-shadow:var(--shadow-m);margin-bottom:24px}
+.av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--purple));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;font-family:'Outfit',sans-serif;overflow:hidden;flex-shrink:0}
+.av img{width:100%;height:100%;object-fit:cover}
+.speaker-pill .nm{font-weight:700;font-size:17px;color:var(--text)}
+.speaker-pill .rl{font-size:13px;color:var(--muted)}
+.tags-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tag{font-size:14px;font-weight:600;padding:8px 16px;border-radius:50px;border:1px solid var(--border);background:var(--white);color:var(--text);transition:all .2s}
+.tag.o{background:var(--orange-l);color:var(--orange);border-color:var(--orange-m)}
+.tag.p{background:var(--purple-l);color:var(--purple);border-color:var(--purple-m)}
+.tag.g{background:var(--wa-l);color:var(--wa-d);border-color:var(--wa-m)}
+
+/* ── S4: CHI SONO ── */
+.about-layout{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start;width:100%}
+.about-photo{width:100%;border-radius:var(--r-l);overflow:hidden;box-shadow:var(--shadow-l)}
+.about-photo img{width:100%;display:block;object-fit:cover;aspect-ratio:1}
+.about-name{font-family:'Outfit',sans-serif;font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
+.about-role{font-size:15px;color:var(--muted);line-height:1.55;margin-bottom:20px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);padding:18px}
+.stat-n{font-family:'Outfit',sans-serif;font-size:34px;font-weight:900;color:var(--text);letter-spacing:-1.2px;line-height:1}
+.stat-l{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4}
+.cert-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.cert-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-s)}
+.cert-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.cert-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.3}
+.cert-detail{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.spec-row{display:flex;flex-wrap:wrap;gap:8px}
+.spec{font-size:12px;font-weight:500;padding:5px 12px;border-radius:50px;border:1px solid var(--border);background:var(--white);color:var(--text)}
+
+/* ── PROBLEMA ── */
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
+.prob-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-s);position:relative;overflow:hidden;transition:all .25s}
+.prob-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-m);border-color:var(--orange-m)}
+.prob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--orange-m),var(--orange))}
+.prob-emoji{font-size:32px;margin-bottom:12px;display:block}
+.prob-card h4{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:-.4px}
+.prob-card p{font-size:16px;color:var(--muted);line-height:1.5}
+
+/* ── AGITAZIONE ── */
+#s6{background:linear-gradient(160deg,#FFF0F0 0%,#F9F7F4 65%)}
+.agit-layout{display:grid;grid-template-columns:1fr 320px 1fr;gap:24px;align-items:center;margin-bottom:18px}
+.agit-col{display:flex;flex-direction:column;gap:10px}
+.agit-col-title{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;text-align:center}
+.agit-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);box-shadow:var(--shadow-s);transition:all .25s}
+.agit-item:hover{border-color:var(--red-m);transform:translateX(4px)}
+.agit-item .ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.agit-item p{font-size:13px;line-height:1.5;color:var(--text)}
+.agit-center{text-align:center;padding:36px 24px;background:linear-gradient(160deg,var(--red-l) 0%,#FFE5E5 100%);border:3px solid var(--red);border-radius:var(--r-l);box-shadow:0 12px 40px rgba(220,38,38,.18)}
+.agit-label{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.agit-n{font-family:'Outfit',sans-serif;font-size:clamp(48px,6vw,80px);font-weight:900;color:var(--red);letter-spacing:-3px;line-height:.9;margin-bottom:8px;text-shadow:0 4px 20px rgba(220,38,38,.2)}
+.agit-sub{font-size:13px;color:#7F1D1D;margin-top:10px;line-height:1.55;font-weight:500}
+.agit-footer{background:linear-gradient(90deg,var(--orange-l),#FFE4D5);border:1px solid var(--orange-m);border-radius:var(--r);padding:18px 24px;display:flex;align-items:center;gap:18px;margin-top:16px}
+.agit-footer .ico{font-size:30px;flex-shrink:0}
+.agit-footer p{font-size:15px;line-height:1.55;color:var(--text)}
+.agit-footer strong{color:var(--orange);font-weight:700}
+
+/* ── SOLUZIONE ── */
+.sol-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:42px;align-items:center;width:100%}
+.sol-steps{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.sol-step{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);box-shadow:var(--shadow-s);transition:all .25s}
+.sol-step:hover{transform:translateX(6px);border-color:var(--orange-m)}
+.sol-step-n{width:36px;height:36px;border-radius:50%;background:var(--orange);color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Outfit',sans-serif}
+.sol-step span{font-size:15px}
+.sol-pills{display:flex;flex-direction:column;gap:14px}
+.sol-pill{display:flex;align-items:center;gap:18px;background:var(--white);border:2px solid var(--border);border-radius:60px;padding:18px 26px;box-shadow:var(--shadow-m);transition:all .25s}
+.sol-pill:hover{transform:scale(1.02)}
+.sol-pill .ico{font-size:32px}
+.sol-pill .txt strong{display:block;font-size:17px;font-weight:700;margin-bottom:3px}
+.sol-pill .txt span{font-size:13px;color:var(--muted)}
+.arrow-d{text-align:center;font-size:24px;color:var(--border);line-height:1}
+
+/* ── TRANSITION SLIDES ── */
+.transition-slide{text-align:center;max-width:900px;width:100%;position:relative}
+.transition-icon{font-size:72px;margin-bottom:20px;display:block;animation:float 4s ease-in-out infinite}
+.transition-h{font-family:'Outfit',sans-serif;font-size:clamp(36px,4.5vw,56px);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:16px}
+.transition-sub{font-size:18px;color:var(--muted);line-height:1.6;max-width:600px;margin:0 auto}
+.transition-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+
+/* ── COWORK INTRO ── */
+.cowork-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:42px;align-items:center;width:100%}
+.cowork-facts{display:flex;flex-direction:column;gap:12px;margin-top:16px}
+.fact{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.fact:last-child{border-bottom:none}
+.fact-ico{width:44px;height:44px;border-radius:12px;background:var(--orange-l);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.fact-txt strong{font-size:15px;font-weight:700;display:block;margin-bottom:4px}
+.fact-txt span{font-size:13px;color:var(--muted);line-height:1.5}
+
+.cowork-app{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-l);width:100%}
+.cw-titlebar{height:42px;background:#F5F4F1;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:8px;position:relative}
+.cw-traffic{display:flex;gap:7px}
+.cw-traffic span{width:12px;height:12px;border-radius:50%}
+.cw-traffic .r{background:#FF5F56}.cw-traffic .y{background:#FFBD2E}.cw-traffic .g{background:#27C93F}
+.cw-tb-title{position:absolute;left:50%;transform:translateX(-50%);font-size:13px;font-weight:500;color:var(--muted)}
+.cw-body{display:grid;grid-template-columns:200px 1fr;min-height:340px}
+.cw-sidebar{background:#FBFAF7;border-right:1px solid var(--border);padding:14px 10px}
+.cw-tabs{display:flex;flex-direction:column;gap:3px;margin-bottom:18px}
+.cw-tab{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;color:var(--muted);cursor:default}
+.cw-tab.active{background:var(--orange-l);color:var(--orange)}
+.cw-tab .icn{font-size:15px}
+.cw-section-title{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#A8A29E;padding:6px 12px;margin-bottom:4px}
+.cw-recent{display:flex;flex-direction:column;gap:2px}
+.cw-recent-item{font-size:12px;color:var(--muted);padding:7px 12px;border-radius:6px;cursor:default;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cw-recent-item:hover{background:var(--light)}
+.cw-recent-item.active{background:#FFF4ED;color:var(--text);font-weight:500}
+.cw-main{padding:20px 24px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+.cw-user-msg{align-self:flex-end;max-width:75%;background:var(--orange);color:#fff;padding:11px 16px;border-radius:14px 14px 4px 14px;font-size:14px;line-height:1.5;box-shadow:0 2px 8px rgba(232,93,36,.25)}
+.cw-claude-msg{align-self:flex-start;max-width:85%}
+.cw-claude-intro{font-size:14px;color:var(--text);line-height:1.55;margin-bottom:10px}
+.cw-plan-box{background:#FBFAF7;border:1px solid var(--border);border-radius:12px;padding:14px 18px}
+.cw-plan-header{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.cw-step{display:flex;align-items:center;gap:11px;padding:7px 0;font-size:13px;color:var(--text)}
+.cw-step-icn{width:20px;height:20px;border-radius:50%;background:#E5E5E1;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#A8A29E;transition:all .3s}
+.cw-step.done .cw-step-icn{background:var(--wa);color:#fff}
+.cw-step.running .cw-step-icn{background:var(--orange);color:#fff;animation:pulse 1.5s ease infinite}
+.cw-step-time{margin-left:auto;font-size:11px;color:#A8A29E;font-family:'JetBrains Mono',monospace}
+.cw-result{margin-top:10px;background:var(--wa-l);border:1px solid var(--wa-m);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--wa-d);line-height:1.6}
+.cw-result strong{color:var(--text)}
+
+/* ── CASO REALE COWORK ── */
+.case-real-layout{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;width:100%}
+.case-scenario{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px;box-shadow:var(--shadow-m)}
+.case-scenario-title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px}
+.case-row{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+.case-row:last-child{border:none}
+.case-row .ico{font-size:20px;flex-shrink:0}
+.case-row strong{display:block;font-size:13px;font-weight:700;margin-bottom:2px}
+.case-row span{font-size:12px;color:var(--muted);line-height:1.5}
+.case-result{background:linear-gradient(135deg,var(--wa-l),#DCFCE7);border:2px solid var(--wa);border-radius:var(--r);padding:28px;text-align:center;box-shadow:var(--shadow-m)}
+.case-result-n{font-family:'Outfit',sans-serif;font-size:64px;font-weight:900;color:var(--wa-d);letter-spacing:-2.5px;line-height:1}
+.case-result-l{font-size:15px;color:var(--text);margin-top:8px;font-weight:600;line-height:1.4}
+.case-result-detail{font-size:13px;color:var(--muted);margin-top:14px;line-height:1.5}
+
+/* ── SB INTRO ── */
+.sb-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:42px;align-items:start;width:100%}
+.plugin-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-m)}
+.plugin-h{background:linear-gradient(135deg,var(--purple-l),#E5DEFF);padding:20px 24px;border-bottom:1px solid var(--purple-m)}
+.plugin-name{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:var(--purple);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.plugin-name .ic{font-size:26px}
+.plugin-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.plugin-body{padding:16px 22px}
+.cmd-list{display:flex;flex-direction:column;gap:8px}
+.cmd-item{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:#FBFAFE;border:1px solid var(--purple-m);border-radius:10px;transition:all .2s}
+.cmd-item:hover{background:var(--purple-l);transform:translateX(4px)}
+.cmd-slash{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--purple);flex-shrink:0;margin-top:1px}
+.cmd-info strong{display:block;font-size:13px;font-weight:700;margin-bottom:1px}
+.cmd-info span{font-size:11px;color:var(--muted)}
+.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.int-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--white);border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;box-shadow:var(--shadow-s)}
+.int-logo{width:24px;height:24px;object-fit:contain;flex-shrink:0}
+.int-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;font-family:'Outfit',sans-serif}
+.new-badge{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);color:#92400E;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;border:1px solid #FDE68A;margin-left:10px;vertical-align:middle;animation:pulse 2.5s ease infinite}
+
+/* ── INSTALLATION GUIDE ── */
+.install-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.install-step{background:var(--white);border-radius:var(--r);padding:28px 22px;border:1px solid var(--border);text-align:center;position:relative;box-shadow:var(--shadow-s)}
+.install-step h3{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;margin-bottom:8px;color:var(--text)}
+.install-step p{font-size:14px;color:var(--muted);line-height:1.55}
+.install-num{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:32px;height:32px;background:var(--purple);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;box-shadow:0 4px 12px rgba(107,72,255,.3)}
+.install-icon{font-size:36px;margin-bottom:10px;margin-top:8px}
+.install-visual{margin-top:14px}
+.install-screen{background:var(--light);border-radius:var(--r-s);border:1px solid var(--border);overflow:hidden}
+.install-bar{display:flex;gap:5px;padding:8px 10px;background:var(--white);border-bottom:1px solid var(--border)}
+.install-bar .dot-r,.install-bar .dot-y,.install-bar .dot-g{width:8px;height:8px;border-radius:50%}
+.install-bar .dot-r{background:#FF5F57}.install-bar .dot-y{background:#FFBD2E}.install-bar .dot-g{background:#28C840}
+
+/* ── SB DEMO ── */
+.sb-demo-wrap{width:100%;max-width:1100px}
+.sb-demo-input{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;box-shadow:var(--shadow-s);display:flex;align-items:center;gap:18px}
+.sb-input-icon{font-size:24px}
+.input-label{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:4px}
+.input-cmd{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:700;color:var(--purple)}
+.input-cursor{animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.sb-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.sb-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-s);opacity:0;transform:translateY(14px);transition:all .4s cubic-bezier(.2,.7,.3,1)}
+.sb-card.show{opacity:1;transform:translateY(0)}
+.sb-card-icon{font-size:28px;margin-bottom:10px}
+.sb-card-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sb-card-value{font-family:'Outfit',sans-serif;font-size:30px;font-weight:900;color:var(--text);letter-spacing:-1px;line-height:1}
+.sb-card-delta{font-size:13px;color:var(--wa-d);margin-top:6px;font-weight:700}
+.sb-card-list{list-style:none;display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.sb-card-list li{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.sb-card-list li::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0}
+
+/* ── WA INTRO ── */
+.wa-layout{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center;width:100%}
+.wa-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.wa-stat{background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);padding:20px;box-shadow:var(--shadow-s);transition:all .25s}
+.wa-stat:hover{border-color:var(--wa);transform:translateY(-3px);box-shadow:var(--shadow-m)}
+.wa-stat .n{font-family:'Outfit',sans-serif;font-size:38px;font-weight:900;color:var(--wa-d);letter-spacing:-1.5px;line-height:1}
+.wa-stat .l{font-size:12px;color:var(--muted);margin-top:6px;font-weight:500}
+.meta-badge{display:inline-flex;align-items:center;gap:7px;background:var(--meta-l);color:var(--meta);font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:10px}
+
+/* ── WA FLOW ── */
+.flow-wrap{width:100%;max-width:1300px}
+.flow-svg-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:32px 24px;box-shadow:var(--shadow-m)}
+.flow-nodes{display:flex;align-items:center;justify-content:space-between;padding:10px 0;flex-wrap:wrap;gap:8px}
+.fn{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.28;transition:all .5s}
+.fn.lit{opacity:1}
+.fn-box{width:100px;height:88px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:2.5px solid var(--border);transition:all .5s;background:var(--white)}
+.fn-box .ico{font-size:28px}
+.fn-box .lbl{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.15}
+.fn-name{font-size:12px;font-weight:600;text-align:center;color:var(--muted);max-width:110px;line-height:1.4}
+.fn-arrow{font-size:22px;color:var(--border);transition:color .5s;flex-shrink:0;font-weight:700}
+.fn-arrow.lit{color:var(--orange);animation:pulse 1.5s ease infinite}
+.fn.n1.lit{color:var(--wa-d)}.fn.n1.lit .fn-box{border-color:var(--wa);box-shadow:0 0 0 5px rgba(37,211,102,.12)}
+.fn.n2.lit{color:var(--meta)}.fn.n2.lit .fn-box{border-color:var(--meta);box-shadow:0 0 0 5px rgba(24,119,242,.12)}
+.fn.n3.lit{color:var(--orange)}.fn.n3.lit .fn-box{border-color:var(--orange);box-shadow:0 0 0 5px rgba(232,93,36,.12)}
+.fn.n4.lit{color:var(--purple)}.fn.n4.lit .fn-box{border-color:var(--purple);box-shadow:0 0 0 5px rgba(107,72,255,.12)}
+.fn.n5.lit{color:#F59E0B}.fn.n5.lit .fn-box{border-color:#F59E0B;box-shadow:0 0 0 5px rgba(245,158,11,.12)}
+.fn.n6.lit{color:var(--wa-d)}.fn.n6.lit .fn-box{border-color:var(--wa);box-shadow:0 0 0 5px rgba(37,211,102,.12)}
+.flow-desc{margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.fd-item{background:var(--light);border-radius:var(--r-s);padding:14px 18px;font-size:12px;line-height:1.55}
+.fd-item strong{display:block;margin-bottom:3px;font-size:13px}
+.fd-item span{color:var(--muted)}
+
+/* ── AUTOMATION FLOW (shared for new slides) ── */
+.auto-flow-layout{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start;width:100%}
+.auto-flow-steps{display:flex;flex-direction:column;gap:10px}
+.auto-step{display:flex;gap:14px;align-items:flex-start}
+.auto-step-num{width:34px;height:34px;border-radius:50%;color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Outfit',sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.auto-step-body strong{display:block;font-size:14px;font-weight:700;margin-bottom:3px}
+.auto-step-body span{font-size:13px;color:var(--muted);line-height:1.5}
+.auto-step-connector{width:2px;height:10px;background:var(--border);margin-left:16px}
+
+/* ── WA PHONE MOCKUP ── */
+.wa-phone{background:#111;border-radius:28px;overflow:hidden;box-shadow:var(--shadow-xl);padding:6px;border:3px solid #222;max-width:280px}
+.wa-phone-inner{border-radius:22px;overflow:hidden;background:#fff}
+.wa-phone-bar{background:#075E54;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.wa-phone-bar .av{width:30px;height:30px;font-size:11px;flex-shrink:0}
+.wa-phone-bar .name{color:#fff;font-size:12px;font-weight:600}
+.wa-phone-bar .status{color:rgba(255,255,255,.7);font-size:10px}
+.wa-msgs{padding:10px 8px;background:#ECE5DD;min-height:300px}
+.wa-msg{border-radius:8px;padding:8px 11px;margin-bottom:5px;font-size:12px;line-height:1.5}
+.wa-msg.in{background:#fff;float:left;clear:both;max-width:86%;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.wa-msg.out{background:#DCF8C6;float:right;clear:both;max-width:86%;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.wa-msg::after{content:'';display:table;clear:both}
+.wa-time{font-size:10px;color:rgba(0,0,0,.4);text-align:right;margin-top:2px}
+
+/* ── PIANO D'AZIONE ── */
+.tom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%}
+.tom-col{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-s);transition:all .25s}
+.tom-col:hover{transform:translateY(-4px);box-shadow:var(--shadow-m)}
+.tom-header{padding:16px 20px;border-bottom:1px solid var(--border)}
+.tom-header h4{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;margin-bottom:3px}
+.tom-header span{font-size:11px;color:var(--muted)}
+.tom-body{padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.tom-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5}
+.tom-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.tom-item div sub{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.easy .tom-header{background:linear-gradient(135deg,var(--wa-l),#DCFCE7)}.easy .tom-header h4{color:var(--wa-d)}.easy .tom-dot{background:var(--wa)}
+.med .tom-header{background:linear-gradient(135deg,var(--orange-l),#FFE4D5)}.med .tom-header h4{color:var(--orange)}.med .tom-dot{background:var(--orange)}
+.hard .tom-header{background:linear-gradient(135deg,var(--purple-l),#E5DEFF)}.hard .tom-header h4{color:var(--purple)}.hard .tom-dot{background:var(--purple)}
+
+/* ── ERRORI ── */
+.err-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:1100px}
+.err-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;box-shadow:var(--shadow-s);display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;align-items:center;transition:all .25s}
+.err-card:hover{transform:translateX(6px);box-shadow:var(--shadow-m)}
+.err-n{font-family:'Outfit',sans-serif;font-size:52px;font-weight:900;color:var(--orange-m);line-height:1;letter-spacing:-3px}
+.err-wrong{padding:14px 16px;background:var(--red-l);border-radius:var(--r-s);border:1px solid var(--red-m)}
+.err-wrong .tg{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.err-wrong p{font-size:13px;color:#7F1D1D;line-height:1.5;font-weight:500}
+.err-ok{padding:14px 16px;background:var(--wa-l);border-radius:var(--r-s);border:1px solid var(--wa-m)}
+.err-ok .tg{background:var(--wa);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.err-ok p{font-size:13px;color:#14532D;line-height:1.5;font-weight:500}
+
+/* ── SERVIZI ── */
+.serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
+.serv-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow-s);transition:all .3s}
+.serv-card:hover{border-color:var(--orange-m);box-shadow:var(--shadow-m);transform:translateY(-4px)}
+.serv-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--orange-l),#FFE4D5);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px}
+.serv-card h4{font-family:'Outfit',sans-serif;font-size:17px;font-weight:800;margin-bottom:6px;letter-spacing:-.4px}
+.serv-card p{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+.serv-tags{display:flex;flex-wrap:wrap;gap:5px}
+.serv-tag{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--light);color:var(--muted);border:1px solid var(--border);font-weight:500}
+
+/* ── PIANI ── */
+.piani-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;width:100%;margin-bottom:18px}
+.piano-card{background:var(--white);border:2px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-m);position:relative;transition:all .3s;display:flex;flex-direction:column}
+.piano-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-l)}
+.piano-card.best{border-color:var(--orange);box-shadow:0 0 0 4px var(--orange-l),var(--shadow-l)}
+.piano-tag{position:absolute;top:16px;right:16px;font-size:11px;font-weight:800;padding:5px 12px;border-radius:20px;background:var(--orange);color:#fff;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 2px 8px rgba(232,93,36,.4)}
+.piano-mesi-wrap{text-align:center;padding:28px 18px 20px;background:linear-gradient(180deg,var(--orange-l) 0%,#FFFAF6 100%);border-bottom:1px solid var(--border)}
+.piano-mesi-n{font-family:'Outfit',sans-serif;font-size:clamp(64px,7vw,110px);font-weight:900;color:var(--orange);letter-spacing:-5px;line-height:.85;background:linear-gradient(135deg,var(--orange),#FF8B5C);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.piano-mesi-l{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--text);letter-spacing:-.5px;margin-top:-4px}
+.piano-card.best .piano-mesi-wrap{background:linear-gradient(180deg,var(--orange-l) 0%,#FFE8DC 100%)}
+.piano-name{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:var(--text);text-align:center;margin-top:12px;letter-spacing:-.5px}
+.piano-desc{font-size:12px;color:var(--muted);line-height:1.5;text-align:center;padding:6px 20px 16px}
+.piano-body{padding:16px 22px 22px;flex:1}
+.piano-feat{display:flex;align-items:flex-start;gap:9px;font-size:13px;margin-bottom:8px;line-height:1.45;color:var(--text)}
+.piano-feat::before{content:'✓';color:var(--wa-d);font-weight:800;flex-shrink:0;font-size:15px}
+.garanzia-bar{background:linear-gradient(135deg,var(--wa-l),#DCFCE7);border:1px solid var(--wa-m);border-radius:var(--r);padding:16px 24px;display:flex;align-items:center;gap:16px}
+.garanzia-bar .ic{font-size:32px;flex-shrink:0}
+.garanzia-bar strong{display:block;font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.garanzia-bar span{font-size:12px;color:var(--muted)}
+
+/* ── CTA ── */
+#s27{background:radial-gradient(ellipse at bottom left,var(--purple-l) 0%,#FFF8F4 40%,#FFF0E5 100%)}
+.cta-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;max-width:1300px;width:100%}
+.cta-photo{border-radius:var(--r-l);overflow:hidden;box-shadow:var(--shadow-xl)}
+.cta-photo img{width:100%;display:block;object-fit:cover;aspect-ratio:.92}
+.cta-content h2{font-family:'Outfit',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:900;letter-spacing:-2px;line-height:1.0;margin-bottom:18px}
+.cta-content h2 em{font-style:normal;background:linear-gradient(135deg,var(--orange),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-content p{font-size:17px;color:var(--muted);line-height:1.6;margin-bottom:24px}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--orange),#FF7A3D);color:#fff;padding:16px 34px;border-radius:60px;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 8px 30px rgba(232,93,36,.4);transition:all .25s;font-family:'DM Sans',sans-serif;margin-bottom:20px}
+.cta-btn:hover{filter:brightness(.95);transform:translateY(-3px);box-shadow:0 12px 35px rgba(232,93,36,.5)}
+.social-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.social-link{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--white);border:1px solid var(--border);border-radius:50px;font-size:12px;font-weight:600;color:var(--text);text-decoration:none;box-shadow:var(--shadow-s);transition:all .2s}
+.social-link:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}
+
+/* ── DEMO BUTTONS ── */
+.demo-btn{display:flex;align-items:center;gap:10px;margin:18px auto 0;padding:14px 32px;border:none;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;color:#fff;background:var(--orange);box-shadow:0 4px 14px rgba(232,93,36,.35)}
+.demo-btn:hover{filter:brightness(.92);transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,93,36,.45)}
+.demo-btn:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ══════════════════════════════════════════
+   PRESENTATION SIZE BOOST (proiezione)
+   ══════════════════════════════════════════ */
+.agit-item p,.fact-txt span,.case-row span,.cmd-info span,.sol-step span,
+.sol-pill .txt span,.piano-desc,.garanzia-bar span,.serv-card p,
+.auto-step-body span,.cw-claude-intro,.fd-item span,.err-wrong p,.err-ok p,
+.tom-item,.piano-feat,.cta-content p{font-size:16px}
+
+.agit-sub,.agit-label,.agit-col-title,.cw-plan-header,
+.cw-section-title,.meta-badge,.plugin-desc{font-size:14px}
+
+.fact-txt strong,.case-row strong,.sol-pill .txt strong,
+.cmd-info strong,.fd-item strong,.tom-header span,
+.serv-tag,.spec,.cert-detail{font-size:14px}
+
+.about-role,.rec-sub,.transition-sub{font-size:19px}
+.rec-h{font-size:38px}
+.about-name{font-size:42px}
+
+.int-item{font-size:16px;padding:14px 16px}
+.int-logo{width:36px;height:36px}
+.int-grid{gap:14px}
+
+.stat-n{font-size:40px}
+.stat-l{font-size:15px}
+.cert-name{font-size:15px}
+
+.wa-stat .n{font-size:44px}
+.wa-stat .l{font-size:14px}
+
+.prob-emoji{font-size:40px}
+
+.serv-card h4,.case-scenario-title{font-size:20px}
+.serv-icon{width:60px;height:60px;font-size:28px}
+
+.tom-header h4{font-size:22px}
+.tom-item{font-size:16px}
+
+.piano-name{font-size:26px}
+.piano-feat{font-size:16px}
+
+.err-n{font-size:60px}
+
+.sol-step span{font-size:17px}
+.sol-step-n{width:42px;height:42px;font-size:17px}
+.sol-pill .txt strong{font-size:19px}
+.sol-pill .ico{font-size:36px}
+
+.auto-step-num{width:40px;height:40px;font-size:16px}
+.auto-step-body strong{font-size:17px}
+.auto-step-body span{font-size:15px}
+
+.cw-user-msg,.cw-step,.cw-claude-intro{font-size:15px}
+.cw-result{font-size:15px}
+
+.cmd-slash{font-size:14px}
+.cmd-info strong{font-size:15px}
+
+.transition-sub{font-size:20px}
+.transition-badges .badge{font-size:16px;padding:10px 18px}
+
+/* ══════════════════════════════════════════
+   WA PHONE MOCKUP FIX
+   ══════════════════════════════════════════ */
+.wa-phone{max-width:340px;padding:8px;border-radius:32px}
+.wa-phone-inner{border-radius:26px}
+.wa-msgs{padding:12px 10px;min-height:auto;max-height:460px;overflow-y:auto}
+.wa-msg{font-size:13px;padding:9px 12px;max-width:88%;word-wrap:break-word;overflow-wrap:break-word}
+.wa-phone-bar .name{font-size:14px}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media(max-width:1200px){
+  .slide{padding:32px 40px}
+  h2.med{font-size:40px}
+  .agit-layout{grid-template-columns:1fr;gap:20px}
+  .agit-center{padding:28px 20px}
+  .agit-n{font-size:60px !important}
+  .prob-grid,.serv-grid,.tom-grid,.piani-grid{grid-template-columns:repeat(2,1fr)}
+  .flow-nodes{flex-wrap:wrap;justify-content:center;gap:12px}
+  .fn-arrow{display:none}
+  .auto-flow-layout{grid-template-columns:1fr}
+}
+
+@media(max-width:900px){
+  .slide{padding:24px 20px;align-items:flex-start}
+  #topnav{padding:0 16px;height:56px}
+  #slides{top:56px;bottom:56px}
+  #botnav{height:56px}
+  h2.med{font-size:32px;letter-spacing:-1px}
+  p.sub{font-size:16px}
+  .about-layout{grid-template-columns:1fr;gap:24px}
+  .about-photo{max-width:200px;margin:0 auto}
+  .sol-layout,.cowork-layout,.wa-layout,.sb-layout,.case-real-layout,.cta-layout{grid-template-columns:1fr;gap:24px}
+  .stat-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .stat-n{font-size:26px}
+  .cert-row{grid-template-columns:1fr}
+  .prob-grid,.serv-grid{grid-template-columns:1fr}
+  .tom-grid,.piani-grid{grid-template-columns:1fr}
+  .err-card{grid-template-columns:1fr;text-align:center}
+  .err-n{font-size:40px}
+  .cw-body{grid-template-columns:1fr}
+  .cw-sidebar{display:none}
+  .int-grid{grid-template-columns:1fr 1fr}
+  .sb-cards{grid-template-columns:1fr}
+  .flow-desc{grid-template-columns:1fr}
+  .wa-phone{max-width:100%;margin:0 auto}
+  .cta-photo{max-width:300px;margin:0 auto}
+  .piano-mesi-n{font-size:64px !important}
+  .cover-h1{font-size:44px !important;letter-spacing:-1.5px}
+  .transition-h{font-size:32px !important}
+  .agit-layout{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+  .slide{padding:20px 14px}
+  h2.med{font-size:26px}
+  .stat-grid{grid-template-columns:1fr}
+  .tags-row{gap:6px}
+  .tag{font-size:12px;padding:6px 12px}
+  .speaker-pill{flex-direction:column;text-align:center;padding:14px}
+  .int-grid{grid-template-columns:1fr}
+  .nav-logo .nav-text{display:none}
+  #timer-badge{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<div id="topnav">
+  <div class="nav-logo">
+    <img src="https://laoivan.com/wp-content/uploads/2024/12/cropped-logotipo-design-online-marketing-consulting.png" alt="Ivan Lao">
+    <span class="nav-text">Workshop AI</span>
+  </div>
+  <div class="nav-right">
+    <div id="timer-badge">⏱ 60 min</div>
+    <div id="counter">1 / 27</div>
+  </div>
+</div>
+
+<div id="slides">
+
+<!-- ══ S1: REGISTRAZIONE WORKSHOP ══ -->
+<div class="slide active" id="s1">
+  <div class="rec-wrap">
+    <div class="anim-up" style="margin-bottom:20px"><span class="badge o">🎬 Registrazione Workshop</span></div>
+    <div class="rec-placeholder anim-up d1">
+      <div class="rec-play-icon">▶</div>
+      <div class="rec-h">La registrazione completa sarà<br>disponibile qui</div>
+      <div class="rec-sub">Al termine del workshop dal vivo, la registrazione completa verrà pubblicata in questa sezione. Potrai rivederla quante volte vuoi.</div>
+      <div style="margin-top:24px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <span class="badge o">📅 9 Giugno 2026</span>
+        <span class="badge p">⏱ 60 minuti</span>
+        <span class="badge g">🔄 Replay illimitato</span>
+      </div>
+    </div>
+    <p class="anim-up d2" style="font-size:14px;color:var(--muted);margin-top:16px">Usa le frecce → per navigare tra le slide del workshop</p>
+  </div>
+</div>
+
+<!-- ══ S2: PRIVACY VIDEO ══ -->
+<div class="slide" id="s2">
+  <div class="privacy-wrap">
+    <div class="anim-up"><span class="badge" style="background:var(--light);color:var(--muted);border:1px solid var(--border);margin-bottom:16px;display:inline-flex">📋 Informativa</span></div>
+    <img src="privacy_page-1.png" alt="Informativa sulla Registrazione" class="anim-up d1">
+  </div>
+</div>
+
+<!-- ══ S3: COVER ══ -->
+<div class="slide" id="s3">
+  <div class="cover-wrap">
+    <div class="anim-up" style="margin-bottom:20px"><span class="badge o">🎓 Workshop esclusivo · 60 minuti · Live</span></div>
+    <h1 class="cover-h1 anim-up d1">Il tuo Assistente AI<br><em>che Lavora per Te</em></h1>
+    <p class="cover-sub anim-up d2">Scopri come usare Claude per automatizzare WhatsApp,<br>gestire clienti e far girare il tuo business in autonomia.</p>
+    <div class="speaker-pill anim-up d3">
+      <div class="av"><img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao"></div>
+      <div>
+        <div class="nm">Ivan Lao</div>
+        <div class="rl">Marketing Automation Specialist · laoivan.com</div>
+      </div>
+    </div>
+    <div class="tags-row anim-up d4">
+      <span class="tag o">🖥️ Cowork</span>
+      <span class="tag p">🏢 Small Business Plugin</span>
+      <span class="tag g">💬 WhatsApp API</span>
+      <span class="tag">🤖 Claude AI</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S4: CHI SONO ══ -->
+<div class="slide" id="s4">
+  <div class="si">
+    <div class="label anim-up">Il relatore</div>
+    <div class="about-layout">
+      <div class="anim-up d1">
+        <div class="about-photo"><img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao"></div>
+      </div>
+      <div>
+        <div class="anim-up d2">
+          <div class="about-name">Ivan Lao</div>
+          <div class="about-role">Marketing Automation Specialist · Make Certified Partner & n8n Expert · Meta Tech Provider<br>Firenze, Italia — attivo nel settore dal 2015</div>
+        </div>
+        <div class="stat-grid anim-up d3">
+          <div class="stat-card"><div class="stat-n">10+</div><div class="stat-l">anni di esperienza<br>nel settore</div></div>
+          <div class="stat-card"><div class="stat-n">5.0★</div><div class="stat-l">rating Google<br>recensioni verificate</div></div>
+          <div class="stat-card"><div class="stat-n">4/4</div><div class="stat-l">livelli Make<br>certificati ufficialmente</div></div>
+        </div>
+        <div class="cert-row anim-up d4">
+          <div class="cert-item">
+            <div class="cert-icon">🔧</div>
+            <div><div class="cert-name">Make Service Partner</div><div class="cert-detail">Foundation · Basics · Intermediate · Sales</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">⚙️</div>
+            <div><div class="cert-name">n8n Expert Avanzato</div><div class="cert-detail">Enterprise · Self-hosting · Custom nodes</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">💬</div>
+            <div><div class="cert-name">Meta Tech Provider</div><div class="cert-detail">WhatsApp Business Platform ufficiale</div></div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🤖</div>
+            <div><div class="cert-name">Certificato Anthropic</div><div class="cert-detail">Specialista AI agentica e Claude</div></div>
+          </div>
+        </div>
+        <div class="spec-row anim-up d5">
+          <span class="spec">WhatsApp Marketing</span><span class="spec">Automazione Funnel</span><span class="spec">Integrazioni SaaS</span><span class="spec">AI & Chatbot</span><span class="spec">Customer Journey</span><span class="spec">Reportistica KPI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S5: PROBLEMA ══ -->
+<div class="slide" id="s5">
+  <div class="si">
+    <div class="label red anim-up">🔴 Il Problema</div>
+    <h2 class="med anim-up d1">Quante ore la settimana perdi<br>su queste attività?</h2>
+    <p class="sub anim-up d2">Ogni giorno, imprenditori e professionisti bruciano ore preziose su task ripetitivi che l'AI potrebbe fare al posto loro — meglio, e in una frazione del tempo.</p>
+    <div class="prob-grid">
+      <div class="prob-card anim-up d2"><span class="prob-emoji">📧</span><h4>Email & follow-up manuali</h4><p>Rispondere, classificare, archiviare email clienti una ad una ogni giorno</p></div>
+      <div class="prob-card anim-up d2"><span class="prob-emoji">📊</span><h4>Report settimanali</h4><p>Raccogliere dati da tool diversi, formattare Word, inviare aggiornamenti</p></div>
+      <div class="prob-card anim-up d2"><span class="prob-emoji">💬</span><h4>Risposte WhatsApp h24</h4><p>Rispondere uno ad uno a clienti e lead, anche la sera e il weekend</p></div>
+      <div class="prob-card anim-up d3"><span class="prob-emoji">📁</span><h4>Organizzare file</h4><p>Rinominare, spostare, archiviare documenti in cartelle — lavoro da macchina</p></div>
+      <div class="prob-card anim-up d3"><span class="prob-emoji">💰</span><h4>Riconciliare fatture</h4><p>Confrontare pagamenti, inseguire insoluti, aggiornare il gestionale a mano</p></div>
+      <div class="prob-card anim-up d3"><span class="prob-emoji">🔄</span><h4>Copiare dati tra tool</h4><p>CRM → Excel → email → report: loop infinito che ti ruba il pomeriggio</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S6: AGITAZIONE (FIX €18.720) ══ -->
+<div class="slide" id="s6">
+  <div class="si">
+    <div class="label red anim-up">🔥 L'Agitazione</div>
+    <h2 class="med anim-up d1">Se non cambi nulla,<br><span style="color:var(--red)">questo è il tuo futuro tra 12 mesi</span></h2>
+    <p class="sub anim-up d2">Non è una critica. È matematica. E intanto i tuoi concorrenti stanno già agendo.</p>
+    <div class="agit-layout">
+      <div class="agit-col anim-up d2">
+        <div class="agit-col-title">😤 Costi emotivi</div>
+        <div class="agit-item"><span class="ico">🌙</span><p>Sere al PC a rispondere WhatsApp mentre i competitor dormono</p></div>
+        <div class="agit-item"><span class="ico">📉</span><p>Lead che si raffreddano perché nessuno li ha ricontattati in tempo</p></div>
+        <div class="agit-item"><span class="ico">😰</span><p>Sensazione di correre sempre, senza mai arrivare in fondo</p></div>
+        <div class="agit-item"><span class="ico">📋</span><p>Decisioni prese su dati vecchi: i report manuali sono sempre in ritardo</p></div>
+      </div>
+      <div class="agit-center anim-up d3">
+        <div class="agit-label">Stai perdendo ogni anno</div>
+        <div class="agit-n">€18.720</div>
+        <div class="agit-sub">10h/settimana × €36/h × 52 settimane<br>Solo di <strong>tempo fatturabile</strong><br>buttato su task ripetitivi</div>
+      </div>
+      <div class="agit-col anim-up d4">
+        <div class="agit-col-title">📉 Costi competitivi</div>
+        <div class="agit-item"><span class="ico">🏃</span><p>Chi ha automatizzato risponde in 30 secondi. Tu in 4 ore</p></div>
+        <div class="agit-item"><span class="ico">🎯</span><p>Campagne WA non attivate: conversioni che finiscono ai concorrenti</p></div>
+        <div class="agit-item"><span class="ico">📊</span><p>Report manuali = decisioni in ritardo. Chi ha dati real-time vince</p></div>
+        <div class="agit-item"><span class="ico">🚀</span><p>Il 67% delle PMI che automatizza riduce i costi operativi del 30%+</p></div>
+      </div>
+    </div>
+    <div class="agit-footer anim-up d5">
+      <span class="ico">⚡</span>
+      <p>Il problema non è che non hai tempo. Il problema è che stai usando il tempo come nel 2019.<br><strong>L'AI ha cambiato tutto. Oggi ti mostro come.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S7: SOLUZIONE ══ -->
+<div class="slide" id="s7">
+  <div class="si">
+    <div class="label anim-up">✅ La Soluzione</div>
+    <div class="sol-layout">
+      <div>
+        <h2 class="med anim-up d1">Claude non risponde solo.<br><span style="color:var(--orange)">Claude agisce.</span></h2>
+        <p class="sub anim-up d2">Fino ad oggi usavi l'AI per scrivere testi. Oggi ti mostro come Claude esegue compiti reali, prende decisioni e lavora per te — anche mentre non sei davanti al computer.</p>
+        <div class="sol-steps">
+          <div class="sol-step anim-up d2"><div class="sol-step-n">1</div><span><strong>Accede</strong> ai tuoi file, email, calendario e software</span></div>
+          <div class="sol-step anim-up d3"><div class="sol-step-n">2</div><span><strong>Pianifica</strong> autonomamente i passi da seguire</span></div>
+          <div class="sol-step anim-up d3"><div class="sol-step-n">3</div><span><strong>Esegue</strong> il lavoro e ti mostra il risultato</span></div>
+          <div class="sol-step anim-up d4"><div class="sol-step-n">4</div><span><strong>Ripete</strong> il task ogni giorno, settimana, mese — automaticamente</span></div>
+        </div>
+      </div>
+      <div class="sol-pills">
+        <div class="sol-pill anim-up d2"><span class="ico">🖥️</span><div class="txt"><strong>Cowork</strong><span>Automazione desktop, file locali, computer use</span></div></div>
+        <div class="arrow-d">↓</div>
+        <div class="sol-pill anim-up d3" style="border-color:var(--purple-m)"><span class="ico">🏢</span><div class="txt"><strong>Plugin Small Business</strong><span>15 workflow pronti per gestire tutto il business</span></div></div>
+        <div class="arrow-d">↓</div>
+        <div class="sol-pill anim-up d4" style="border-color:var(--wa-m)"><span class="ico">💬</span><div class="txt"><strong>WhatsApp + Meta Cloud API</strong><span>Marketing e assistenza automatizzata h24</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S8: TRANSITION — MODULO COWORK ══ -->
+<div class="slide" id="s8" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
+  <div class="transition-slide">
+    <div class="transition-icon anim-up">🖥️</div>
+    <h2 class="transition-h anim-up d1">Modulo 1<br><span style="color:var(--orange)">Claude Cowork</span></h2>
+    <p class="transition-sub anim-up d2">Il tuo collaboratore digitale che lavora sul tuo computer, legge file, esegue task e li ripete automaticamente.</p>
+    <div class="transition-badges anim-up d3">
+      <span class="badge o">📁 File locali</span>
+      <span class="badge o">📱 Dispatch mobile</span>
+      <span class="badge o">⏰ Task programmati</span>
+      <span class="badge o">🔌 7+ connettori</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S9: COWORK INTRO ══ -->
+<div class="slide" id="s9">
+  <div class="si">
+    <div class="label anim-up">Modulo 1 — Claude Cowork</div>
+    <div class="cowork-layout">
+      <div>
+        <h2 class="med anim-up d1">Cos'è <span style="color:var(--orange)">Claude Cowork</span></h2>
+        <p class="sub anim-up d2" style="margin-bottom:14px">Lanciato a gennaio 2026, Cowork trasforma Claude in un collaboratore digitale che agisce sul tuo computer: legge file, esegue task multi-step e li ripete automaticamente.</p>
+        <div class="cowork-facts">
+          <div class="fact anim-up d2"><div class="fact-ico">📁</div><div class="fact-txt"><strong>Accesso cartella locale</strong><span>Legge, organizza, modifica file sul tuo computer — nessun copia-incolla</span></div></div>
+          <div class="fact anim-up d3"><div class="fact-ico">📱</div><div class="fact-txt"><strong>Dispatch da mobile</strong><span>Invii il comando dal telefono, Claude lo esegue sul desktop di casa</span></div></div>
+          <div class="fact anim-up d3"><div class="fact-ico">⏰</div><div class="fact-txt"><strong>Task programmati</strong><span>Briefing mattutino o report settimanale: imposti una volta, gira per sempre</span></div></div>
+          <div class="fact anim-up d4"><div class="fact-ico">🔌</div><div class="fact-txt"><strong>Connettori app</strong><span>Si collega a Slack, Calendar, Gmail, Drive — e al Plugin Small Business</span></div></div>
+        </div>
+        <div class="anim-up d5" style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge o">⚠️ Solo macOS</span>
+          <span class="badge p">Piano Pro+ — da $20/mese</span>
+          <span class="badge" style="background:var(--light);color:var(--muted);border:1px solid var(--border)">Research Preview</span>
+        </div>
+      </div>
+      <div class="anim-up d3">
+        <div class="cowork-app">
+          <div class="cw-titlebar"><div class="cw-traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="cw-tb-title">Claude · Cowork</span></div>
+          <div class="cw-body">
+            <div class="cw-sidebar">
+              <div class="cw-tabs">
+                <div class="cw-tab"><span class="icn">💬</span>Chat</div>
+                <div class="cw-tab active"><span class="icn">🖥️</span>Cowork</div>
+                <div class="cw-tab"><span class="icn">💻</span>Code</div>
+              </div>
+              <div class="cw-section-title">Sessioni recenti</div>
+              <div class="cw-recent">
+                <div class="cw-recent-item active">📋 Report clienti settimanale</div>
+                <div class="cw-recent-item">📁 Organizza cartella Fatture</div>
+                <div class="cw-recent-item">📊 Brief lunedì mattina</div>
+                <div class="cw-recent-item">📧 Triage email urgenti</div>
+              </div>
+            </div>
+            <div class="cw-main">
+              <div class="cw-user-msg">Organizza i file della cartella Clienti per mese e crea un PDF di riepilogo</div>
+              <div class="cw-claude-msg">
+                <div class="cw-claude-intro">Perfetto. Procedo in 4 passi:</div>
+                <div class="cw-plan-box">
+                  <div class="cw-plan-header">📋 Piano di esecuzione</div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Analisi 84 file nella cartella<span class="cw-step-time">0.4s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Creazione 12 cartelle per mese<span class="cw-step-time">1.1s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Spostamento file: 84/84<span class="cw-step-time">3.7s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Generazione Riepilogo_Clienti.pdf<span class="cw-step-time">8.2s</span></div>
+                </div>
+                <div class="cw-result">✅ <strong>Completato in 8.2 secondi.</strong><br>File salvato sul Desktop · Pronto per la revisione</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S10: COWORK DEMO ══ -->
+<div class="slide" id="s10">
+  <div class="si" style="max-width:1200px">
+    <div class="label anim-up">🎬 Demo interattiva — Cowork in azione</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Scenario reale: <span style="color:var(--orange)">triage email + report PDF</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:18px">50+ email clienti a settimana. Premi "Avvia Demo" e guarda Claude eseguire tutto in 18 secondi.</p>
+    <div class="anim-up d2">
+      <div class="cowork-app">
+        <div class="cw-titlebar"><div class="cw-traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="cw-tb-title">Claude · Cowork — Sessione attiva</span></div>
+        <div class="cw-body">
+          <div class="cw-sidebar">
+            <div class="cw-tabs">
+              <div class="cw-tab"><span class="icn">💬</span>Chat</div>
+              <div class="cw-tab active"><span class="icn">🖥️</span>Cowork</div>
+              <div class="cw-tab"><span class="icn">💻</span>Code</div>
+            </div>
+            <div class="cw-section-title">Sessioni recenti</div>
+            <div class="cw-recent">
+              <div class="cw-recent-item active">📧 Triage email settimanale</div>
+              <div class="cw-recent-item">📊 Brief lunedì 8:30</div>
+              <div class="cw-recent-item">📁 Org. cartella Fatture</div>
+            </div>
+          </div>
+          <div class="cw-main" id="demo-main">
+            <div class="cw-user-msg">Leggi le email clienti degli ultimi 7 giorni, classificale e crea un report PDF</div>
+            <div class="cw-claude-msg" id="claude-area" style="display:none">
+              <div class="cw-claude-intro">Procedo subito. Esecuzione in corso...</div>
+              <div class="cw-plan-box">
+                <div class="cw-plan-header">📋 Piano di esecuzione</div>
+                <div id="steps-container"></div>
+              </div>
+              <div class="cw-result" id="cw-result" style="display:none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="demo-btn" id="demo1-btn" onclick="runDemo1()">▶ Avvia Demo</button>
+  </div>
+</div>
+
+<!-- ══ S11: CASO REALE COWORK ══ -->
+<div class="slide" id="s11">
+  <div class="si">
+    <div class="label anim-up">📊 Caso reale — Cowork</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Studio professionale, 3 persone<br><span style="color:var(--orange)">Prima e dopo l'automazione</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:20px">Studio di consulenza con 3 collaboratori. Ogni settimana: 40 email clienti, 4 report, 8 fatture, 1 riunione di brief.</p>
+    <div class="case-real-layout">
+      <div class="case-scenario anim-up d2">
+        <div class="case-scenario-title">Cosa ha cambiato Cowork</div>
+        <div class="case-row"><span class="ico">📧</span><div><strong>Email & follow-up</strong><span>Classificazione automatica + bozze pronte. Da 2h a 10 min al giorno</span></div></div>
+        <div class="case-row"><span class="ico">📊</span><div><strong>Report settimanale</strong><span>Generato ogni giovedì sera dal Cowork. Pronto venerdì alle 9</span></div></div>
+        <div class="case-row"><span class="ico">💰</span><div><strong>Riconciliazione fatture</strong><span>/close-month confronta PayPal/QuickBooks. Da 1h a 4 min</span></div></div>
+        <div class="case-row"><span class="ico">📅</span><div><strong>Brief settimanale</strong><span>/monday-brief in Slack ogni lunedì 8:30. Niente più riunioni statiche</span></div></div>
+      </div>
+      <div class="case-result anim-up d3">
+        <div class="case-result-n">12 ore</div>
+        <div class="case-result-l">risparmiate ogni settimana</div>
+        <div class="case-result-detail">Equivalente a mezza giornata lavorativa per ogni collaboratore.<br>Setup totale: <strong style="color:var(--text)">2 ore</strong>. ROI dalla prima settimana.</div>
+        <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <span class="badge g">+34% produttività</span>
+          <span class="badge o">€2.880/mese recuperati</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S12: TRANSITION — MODULO SB ══ -->
+<div class="slide" id="s12" style="background:radial-gradient(ellipse at center,#F0EDFF 0%,var(--bg) 70%)">
+  <div class="transition-slide">
+    <div class="transition-icon anim-up">🏢</div>
+    <h2 class="transition-h anim-up d1">Modulo 2<br><span style="color:var(--purple)">Plugin Small Business</span></h2>
+    <p class="transition-sub anim-up d2">15 workflow pronti per gestire tutto il tuo business: dalla contabilità al marketing, dal CRM alla reportistica.</p>
+    <div class="transition-badges anim-up d3">
+      <span class="badge p">📊 QuickBooks</span>
+      <span class="badge p">🎯 HubSpot</span>
+      <span class="badge p">💳 PayPal</span>
+      <span class="badge p">📱 Slack</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S13: INSTALLATION GUIDE ══ -->
+<div class="slide" id="s13">
+  <div class="si">
+    <div class="label purple anim-up">Guida Installazione — Plugin Small Business</div>
+    <h2 class="med anim-up d1">Pronto in <span style="color:var(--purple)">3 semplici passaggi</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:28px">Nessuna configurazione tecnica. Bastano 2 minuti.</p>
+    <div class="install-steps anim-up d3">
+      <div class="install-step">
+        <div class="install-num">1</div>
+        <div class="install-icon">📥</div>
+        <h3>Scarica Cowork Desktop</h3>
+        <p>Vai su <strong>cowork.ai/download</strong> e installa l'app per Mac o Windows. Pesa meno di 200 MB.</p>
+        <div class="install-visual">
+          <div class="install-screen">
+            <div class="install-bar"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <div style="padding:12px;text-align:center">
+              <div style="font-size:32px;margin-bottom:6px">💻</div>
+              <div style="font-size:11px;color:var(--muted)">cowork.ai/download</div>
+              <div style="margin-top:8px;background:var(--purple);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;display:inline-block">⬇ Scarica per Mac</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-num">2</div>
+        <div class="install-icon">🔌</div>
+        <h3>Attiva il Plugin</h3>
+        <p>Apri Cowork → <strong>Plugin Store</strong> → cerca "Small Business" → clicca <strong>Installa</strong>.</p>
+        <div class="install-visual">
+          <div class="install-screen">
+            <div class="install-bar"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <div style="padding:12px;text-align:center">
+              <div style="font-size:32px;margin-bottom:6px">🏢</div>
+              <div style="font-size:11px;color:var(--muted)">Plugin Store</div>
+              <div style="margin-top:8px;background:var(--wa);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;display:inline-block">✓ Installa</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-num">3</div>
+        <div class="install-icon">🔗</div>
+        <h3>Collega i tuoi account</h3>
+        <p>Segui la procedura guidata per collegare <strong>QuickBooks, PayPal, HubSpot</strong> e gli altri servizi. OAuth sicuro, zero password condivise.</p>
+        <div class="install-visual">
+          <div class="install-screen">
+            <div class="install-bar"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <div style="padding:12px;text-align:center">
+              <div style="display:flex;gap:6px;justify-content:center;margin-bottom:6px">
+                <div class="int-ico" style="background:#2CA01C;width:28px;height:28px;font-size:13px">QB</div>
+                <div class="int-ico" style="background:#003087;width:28px;height:28px;font-size:13px">PP</div>
+                <div class="int-ico" style="background:#FF7A59;width:28px;height:28px;font-size:13px">HS</div>
+              </div>
+              <div style="font-size:11px;color:var(--muted)">OAuth 2.0 sicuro</div>
+              <div style="margin-top:8px;background:var(--orange);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:700;display:inline-block">🔗 Collega</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="anim-up d4" style="text-align:center;margin-top:20px">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:var(--purple-l);padding:12px 24px;border-radius:var(--r-s);border:1px solid var(--purple-m)">
+        <span style="font-size:20px">⏱</span>
+        <span style="font-size:15px;font-weight:600;color:var(--purple)">Tempo totale: ~2 minuti</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S14: SB INTRO ══ -->
+<div class="slide" id="s14">
+  <div class="si">
+    <div class="label purple anim-up">Modulo 2 — Plugin Small Business</div>
+    <div class="sb-layout">
+      <div>
+        <h2 class="med anim-up d1">Il Plugin che gestisce<br><span style="color:var(--purple)">tutto il tuo business</span><span class="new-badge anim-up d2">🆕 13 maggio 2026</span></h2>
+        <p class="sub anim-up d2" style="margin-bottom:18px">Un plugin per Cowork con 15 workflow pronti all'uso, collegati agli strumenti che già usi ogni giorno. Non un nuovo abbonamento: incluso in Pro+. Installazione in 1 click.</p>
+        <div class="plugin-card anim-up d3">
+          <div class="plugin-h">
+            <div class="plugin-name"><span class="ic">🏢</span>Small Business Plugin</div>
+            <div class="plugin-desc">15 workflow · 7+ integrazioni · 1 click · Tutto integrato in Cowork desktop</div>
+          </div>
+          <div class="plugin-body">
+            <div class="cmd-list">
+              <div class="cmd-item"><span class="cmd-slash">/monday-brief</span><div class="cmd-info"><strong>Brief settimanale</strong><span>Cash + pipeline + agenda + top 3 priorità — ogni lunedì 8:30</span></div></div>
+              <div class="cmd-item"><span class="cmd-slash">/close-month</span><div class="cmd-info"><strong>Chiusura mese</strong><span>Riconcilia QB+PayPal, genera P&L, invia al commercialista</span></div></div>
+              <div class="cmd-item"><span class="cmd-slash">/run-campaign</span><div class="cmd-info"><strong>Campagna marketing</strong><span>Strategia + asset Canva + lista HubSpot + invio</span></div></div>
+              <div class="cmd-item"><span class="cmd-slash">/plan-payroll</span><div class="cmd-info"><strong>Gestione paghe</strong><span>Previsione cash + inseguimento fatture insolute automatico</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="anim-up d2" style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px">7 integrazioni native</div>
+        <div class="int-grid anim-up d3">
+          <div class="int-item"><div class="int-ico" style="background:#2CA01C">QB</div>QuickBooks</div>
+          <div class="int-item"><div class="int-ico" style="background:#003087">PP</div>PayPal</div>
+          <div class="int-item"><div class="int-ico" style="background:#FF7A59">HS</div>HubSpot</div>
+          <div class="int-item"><div class="int-ico" style="background:#00C4CC">C</div>Canva</div>
+          <div class="int-item"><div class="int-ico" style="background:#FF5722">DS</div>DocuSign</div>
+          <div class="int-item"><div class="int-ico" style="background:#4285F4">G</div>Google Workspace</div>
+          <div class="int-item"><div class="int-ico" style="background:#D83B01">M</div>Microsoft 365</div>
+          <div class="int-item"><div class="int-ico" style="background:#4A154B">S</div>Slack</div>
+        </div>
+        <div class="card anim-up d4" style="background:linear-gradient(135deg,var(--purple-l),#E5DEFF);border-color:var(--purple-m);margin-bottom:12px">
+          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:6px">🛡️ Sicurezza e controllo</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.55">Claude propone ogni azione. <strong>Tu approvi</strong> prima che invii email, generi fatture o modifichi dati.</div>
+        </div>
+        <div class="card anim-up d5" style="background:linear-gradient(135deg,var(--orange-l),#FFE4D5);border-color:var(--orange-m)">
+          <div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:6px">⚡ Novità assoluta</div>
+          <div style="font-size:12px;color:var(--text);line-height:1.5">Lanciato 4 giorni fa. Lo stai vedendo tra i primissimi in Italia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S14: SB DEMO ══ -->
+<div class="slide" id="s15">
+  <div class="si sb-demo-wrap">
+    <div class="label purple anim-up">🎬 Demo interattiva — Plugin Small Business</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Scenario: <span style="color:var(--purple)">/monday-brief</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:18px">Ogni lunedì alle 8:30, Claude legge QuickBooks, PayPal e HubSpot e ti consegna il briefing completo su Slack.</p>
+    <div class="sb-demo-input anim-up d2">
+      <div class="sb-input-icon">🏢</div>
+      <div>
+        <div class="input-label">Comando in Cowork</div>
+        <div class="input-cmd">/monday-brief<span class="input-cursor" id="sb-cursor"> |</span></div>
+      </div>
+    </div>
+    <div class="sb-cards" id="sb-cards">
+      <div class="sb-card" id="sbc1"><div class="sb-card-icon">💰</div><div class="sb-card-label">Liquidità attuale</div><div class="sb-card-value">€24.350</div><div class="sb-card-delta">↑ +12% vs settimana scorsa</div></div>
+      <div class="sb-card" id="sbc2"><div class="sb-card-icon">🎯</div><div class="sb-card-label">Pipeline attiva</div><div class="sb-card-value">8 trattative</div><div class="sb-card-delta" style="color:var(--purple)">€142.000 valore totale</div></div>
+      <div class="sb-card" id="sbc3"><div class="sb-card-icon">📅</div><div class="sb-card-label">Agenda settimana</div><div class="sb-card-value">5 impegni</div><ul class="sb-card-list" style="margin-top:8px"><li>Lun 10:00 — Call Rossi SRL</li><li>Mar 15:00 — Scadenza preventivo</li><li>Gio 09:00 — Check QuickBooks</li></ul></div>
+      <div class="sb-card" id="sbc4"><div class="sb-card-icon">✅</div><div class="sb-card-label">Top 3 priorità oggi</div><ul class="sb-card-list" style="margin-top:8px"><li>Inviare preventivo a Bianchi SRL</li><li>Riconciliare 3 pagamenti PayPal sospesi</li><li>Follow-up lead di giovedì scorso</li></ul></div>
+    </div>
+    <button class="demo-btn" id="demo2-btn" onclick="runDemo2()" style="background:linear-gradient(135deg,var(--purple),#8567FF);box-shadow:0 4px 14px rgba(107,72,255,.35)">▶ Avvia /monday-brief</button>
+  </div>
+</div>
+
+<!-- ══ S15: TRANSITION — MODULO WA ══ -->
+<div class="slide" id="s16" style="background:radial-gradient(ellipse at center,#EDFBF3 0%,var(--bg) 70%)">
+  <div class="transition-slide">
+    <div class="transition-icon anim-up">💬</div>
+    <h2 class="transition-h anim-up d1">Modulo 3<br><span style="color:var(--wa-d)">WhatsApp + Claude</span></h2>
+    <p class="transition-sub anim-up d2">Il canale con il 98% di tasso apertura. Automatizza marketing, assistenza e vendite su WhatsApp con l'AI.</p>
+    <div class="transition-badges anim-up d3">
+      <span class="badge g">📩 Risposta in 30 sec</span>
+      <span class="badge g">🔄 Nurturing automatico</span>
+      <span class="badge g">🤖 Chatbot AI</span>
+      <span class="badge g">🎯 Broadcast 98%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S16: WA INTRO ══ -->
+<div class="slide" id="s17">
+  <div class="si">
+    <div class="label green anim-up">Modulo 3 — WhatsApp + Claude</div>
+    <div class="wa-layout">
+      <div>
+        <h2 class="med anim-up d1">Il canale che nessun<br>business può ignorare<br><span style="color:var(--wa-d)">nel 2026</span></h2>
+        <p class="sub anim-up d2" style="margin-bottom:18px">WhatsApp non è più solo messaggistica. Con la Meta Cloud API è il canale di vendita e assistenza con le performance più alte sul mercato.</p>
+        <div class="wa-stats-grid">
+          <div class="wa-stat anim-up d2"><div class="n">2 MLD</div><div class="l">utenti attivi globali</div></div>
+          <div class="wa-stat anim-up d3"><div class="n">98%</div><div class="l">tasso apertura messaggi</div></div>
+          <div class="wa-stat anim-up d3"><div class="n">3-5x</div><div class="l">risposte vs email</div></div>
+          <div class="wa-stat anim-up d4"><div class="n">&lt;3 min</div><div class="l">tempo medio risposta atteso</div></div>
+        </div>
+        <div class="card anim-up d4" style="background:linear-gradient(135deg,var(--wa-l),#DCFCE7);border-color:var(--wa-m);margin-top:10px">
+          <div class="meta-badge">🔵 Meta Tech Provider</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px">Ivan Lao — Partner ufficiale Meta</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55">Accesso diretto alla WhatsApp Business Platform per soluzioni enterprise di marketing e assistenza automatizzata — con Claude AI integrato.</div>
+        </div>
+      </div>
+      <div class="card anim-up d3">
+        <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--wa-l),var(--wa-m));display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:12px">💬</div>
+        <h4 style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-bottom:12px;letter-spacing:-.5px">Cosa automatizziamo su WhatsApp</h4>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;font-size:14px"><span style="font-size:20px">📩</span><span>Risposta automatica a nuovi lead in 30 secondi</span></div>
+          <div style="display:flex;gap:12px;font-size:14px"><span style="font-size:20px">🔄</span><span>Sequenze di nurturing multigiorno automatizzate</span></div>
+          <div style="display:flex;gap:12px;font-size:14px"><span style="font-size:20px">📦</span><span>Notifiche ordine, spedizione, appuntamento</span></div>
+          <div style="display:flex;gap:12px;font-size:14px"><span style="font-size:20px">🤖</span><span>Chatbot AI per FAQ e qualificazione lead</span></div>
+          <div style="display:flex;gap:12px;font-size:14px"><span style="font-size:20px">🎯</span><span>Broadcast segmentati con apertura 98%</span></div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:linear-gradient(135deg,var(--orange-l),#FFE4D5);border-radius:12px;border:1px solid var(--orange-m)">
+          <div style="font-size:13px;color:var(--text);font-weight:500;line-height:1.55">⚡ Chi risponde in 5 minuti ha il <strong style="color:var(--orange)">400% di probabilità in più</strong> di convertire un lead.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S17: WA FLOW ══ -->
+<div class="slide" id="s18">
+  <div class="si flow-wrap">
+    <div class="label green anim-up">🎬 Demo — Flusso WhatsApp Meta Cloud API</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Come funziona l'automazione end-to-end</h2>
+    <p class="sub anim-up d2" style="margin-bottom:18px">Un lead scrive su WhatsApp. Claude risponde in secondi, qualifica il contatto e avvia la sequenza giusta — senza intervento umano.</p>
+    <div class="flow-svg-wrap anim-up d2">
+      <div class="flow-nodes" id="flow-nodes">
+        <div class="fn n1" id="fn1"><div class="fn-box"><span class="ico">👤</span><span class="lbl">Lead</span></div><span class="fn-name">Utente scrive su WA</span></div>
+        <div class="fn-arrow" id="fa1">→</div>
+        <div class="fn n2" id="fn2"><div class="fn-box"><span class="ico">☁️</span><span class="lbl">Meta Cloud API</span></div><span class="fn-name">Riceve messaggio</span></div>
+        <div class="fn-arrow" id="fa2">→</div>
+        <div class="fn n3" id="fn3"><div class="fn-box"><span class="ico">🔗</span><span class="lbl">Webhook</span></div><span class="fn-name">Trigger automazione</span></div>
+        <div class="fn-arrow" id="fa3">→</div>
+        <div class="fn n4" id="fn4"><div class="fn-box"><span class="ico">🤖</span><span class="lbl">Claude AI</span></div><span class="fn-name">Elabora e risponde</span></div>
+        <div class="fn-arrow" id="fa4">→</div>
+        <div class="fn n5" id="fn5"><div class="fn-box"><span class="ico">📋</span><span class="lbl">Template</span></div><span class="fn-name">Messaggio approvato Meta</span></div>
+        <div class="fn-arrow" id="fa5">→</div>
+        <div class="fn n6" id="fn6"><div class="fn-box"><span class="ico">✅</span><span class="lbl">Consegnato</span></div><span class="fn-name">Cliente riceve risposta</span></div>
+      </div>
+      <div class="flow-desc">
+        <div class="fd-item"><strong>⏱ Tempo totale</strong><span>Da messaggio a risposta: 3-8 secondi</span></div>
+        <div class="fd-item"><strong>🛡️ Compliance Meta</strong><span>Solo template approvati nelle prime 24h di conversazione</span></div>
+        <div class="fd-item"><strong>📊 CRM integrato</strong><span>Lead salvato automaticamente in HubSpot / Baserow in tempo reale</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:14px">
+      <button class="demo-btn" id="demo3-btn" onclick="runDemo3()" style="background:linear-gradient(135deg,var(--wa),var(--wa-d));box-shadow:0 4px 14px rgba(37,211,102,.35)">▶ Anima il flusso</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S18: MESSAGGI MASSIVI RIATTIVAZIONE WA + COWORK ══ -->
+<div class="slide" id="s19">
+  <div class="si">
+    <div class="label green anim-up">📢 Automazione — Riattivazione contatti</div>
+    <h2 class="med anim-up d1">Messaggi massivi di riattivazione<br><span style="color:var(--wa-d)">con WhatsApp + Claude Cowork</span></h2>
+    <p class="sub anim-up d2">Riattiva centinaia di contatti dormienti con messaggi personalizzati su WhatsApp, orchestrati da Claude Cowork. Ogni messaggio è unico, non un broadcast generico.</p>
+    <div class="auto-flow-layout">
+      <div>
+        <div class="auto-flow-steps anim-up d2">
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--orange)">1</div><div class="auto-step-body"><strong>Claude accede al CRM</strong><span>Legge la lista contatti dal CRM (HubSpot/Baserow) e identifica quelli inattivi da 30+ giorni</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--purple)">2</div><div class="auto-step-body"><strong>Segmentazione intelligente</strong><span>Classifica i contatti per tipo (ex-clienti, lead freddi, abbandoni) e prepara messaggi personalizzati per ogni segmento</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">3</div><div class="auto-step-body"><strong>Invio massivo via WhatsApp</strong><span>Usa template approvati Meta per inviare messaggi personalizzati a centinaia di contatti, rispettando i limiti API</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">4</div><div class="auto-step-body"><strong>Gestione risposte automatica</strong><span>Claude risponde automaticamente ai contatti che reagiscono, qualificandoli e avviando la sequenza di nurturing</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--orange)">5</div><div class="auto-step-body"><strong>Report risultati</strong><span>Dashboard con tasso risposta, contatti riattivati e opportunità generate. Report automatico su Slack</span></div></div>
+        </div>
+      </div>
+      <div class="anim-up d3">
+        <div class="cowork-app">
+          <div class="cw-titlebar"><div class="cw-traffic"><span class="r"></span><span class="y"></span><span class="g"></span></div><span class="cw-tb-title">Claude · Cowork — Riattivazione</span></div>
+          <div class="cw-body" style="grid-template-columns:1fr">
+            <div class="cw-main">
+              <div class="cw-user-msg">Riattiva i contatti dormienti da più di 30 giorni via WhatsApp con offerta personalizzata</div>
+              <div class="cw-claude-msg">
+                <div class="cw-claude-intro">Procedo con la campagna di riattivazione:</div>
+                <div class="cw-plan-box">
+                  <div class="cw-plan-header">📋 Piano di esecuzione</div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Scan CRM: 342 contatti inattivi<span class="cw-step-time">1.2s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Segmentazione: 3 gruppi<span class="cw-step-time">2.8s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Template WA personalizzati: 3<span class="cw-step-time">5.1s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Invio 342 messaggi WA<span class="cw-step-time">48s</span></div>
+                  <div class="cw-step done"><div class="cw-step-icn">✓</div>Report generato su Slack<span class="cw-step-time">52s</span></div>
+                </div>
+                <div class="cw-result">✅ <strong>342 messaggi inviati.</strong><br>87 risposte ricevute (25.4%) · 23 appuntamenti fissati · Report su #marketing</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S19: REMIND APPUNTAMENTI (era recupero carrelli) ══ -->
+<div class="slide" id="s20">
+  <div class="si">
+    <div class="label green anim-up">📅 Automazione — Remind appuntamenti</div>
+    <h2 class="med anim-up d1" style="margin-bottom:16px">Remind automatico appuntamenti<br><span style="color:var(--wa-d)">via WhatsApp</span></h2>
+    <div class="auto-flow-layout">
+      <div class="wa-phone anim-up d2">
+        <div class="wa-phone-inner">
+          <div class="wa-phone-bar">
+            <div class="av" style="background:linear-gradient(135deg,var(--wa-d),var(--wa));font-size:14px">S</div>
+            <div><div class="name">Studio Rossi</div><div class="status">online</div></div>
+          </div>
+          <div class="wa-msgs">
+            <div style="clear:both"><div class="wa-msg out">Ciao Marco! 👋 Ti ricordiamo il tuo appuntamento:<br><br>📅 Domani, Martedì 10 Giugno<br>🕐 Ore 15:00<br>📍 Via Roma 42, Firenze<br><br>Confermi la presenza?</div><div class="wa-time">09:00 ✓✓</div></div>
+            <div style="clear:both"><div class="wa-msg in">Sì confermo, ci sarò!</div><div class="wa-time" style="text-align:left">09:12</div></div>
+            <div style="clear:both"><div class="wa-msg out">Perfetto Marco! ✅ Appuntamento confermato.<br><br>Se hai bisogno di spostarlo, scrivici qui. A domani!</div><div class="wa-time">09:12 ✓✓</div></div>
+            <div style="clear:both"><div class="wa-msg out">Ciao Marco! 😊 Ti aspettiamo domani.<br>Per qualsiasi esigenza, scrivici qui!</div><div class="wa-time">09:30 ✓✓</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="auto-flow-steps anim-up d2">
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--purple)">1</div><div class="auto-step-body"><strong>Sync calendario</strong><span>Claude legge Google Calendar o il gestionale appuntamenti ogni sera alle 20:00</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">2</div><div class="auto-step-body"><strong>Remind 24h prima</strong><span>Messaggio WhatsApp automatico con data, ora e indirizzo — chiede conferma presenza</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--orange)">3</div><div class="auto-step-body"><strong>Gestione risposte</strong><span>Claude gestisce conferme, cancellazioni e richieste di spostamento. Aggiorna il calendario automaticamente</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">4</div><div class="auto-step-body"><strong>Remind giorno stesso</strong><span>Secondo messaggio la mattina dell'appuntamento con indicazioni e contatto diretto</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--purple)">5</div><div class="auto-step-body"><strong>Risultato tipico</strong><span style="color:var(--wa-d);font-weight:700">-75% no-show · +40% tasso conferma · 0 telefonate manuali</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S20: RICHIESTA RECENSIONI ══ -->
+<div class="slide" id="s21">
+  <div class="si">
+    <div class="label green anim-up">⭐ Automazione — Richiesta recensioni</div>
+    <h2 class="med anim-up d1" style="margin-bottom:16px">Recensioni Google automatiche<br><span style="color:var(--wa-d)">via WhatsApp post-servizio</span></h2>
+    <div class="auto-flow-layout">
+      <div>
+        <div class="auto-flow-steps anim-up d2">
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--orange)">1</div><div class="auto-step-body"><strong>Trigger post-servizio</strong><span>48 ore dopo l'appuntamento/acquisto, Claude verifica che il servizio sia stato completato nel CRM</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">2</div><div class="auto-step-body"><strong>Messaggio personalizzato</strong><span>WhatsApp con nome cliente, servizio specifico e link diretto alla pagina recensioni Google</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--purple)">3</div><div class="auto-step-body"><strong>Follow-up intelligente</strong><span>Se non risponde entro 3 giorni, secondo messaggio più breve. Se risponde negativamente, Claude chiede feedback privato</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--wa-d)">4</div><div class="auto-step-body"><strong>Gestione feedback negativo</strong><span>Claude raccoglie le critiche e le invia al team interno per risoluzione — prima che diventino recensioni negative pubbliche</span></div></div>
+          <div class="auto-step-connector"></div>
+          <div class="auto-step"><div class="auto-step-num" style="background:var(--orange)">5</div><div class="auto-step-body"><strong>Risultato tipico</strong><span style="color:var(--wa-d);font-weight:700">+300% recensioni Google · 4.8+ rating medio · 0 effort manuale</span></div></div>
+        </div>
+      </div>
+      <div class="anim-up d3">
+        <div class="wa-phone" style="margin:0 auto">
+          <div class="wa-phone-inner">
+            <div class="wa-phone-bar">
+              <div class="av" style="background:linear-gradient(135deg,var(--wa-d),var(--wa));font-size:14px">S</div>
+              <div><div class="name">Studio Rossi</div><div class="status">online</div></div>
+            </div>
+            <div class="wa-msgs">
+              <div style="clear:both"><div class="wa-msg out">Ciao Laura! 😊<br><br>Grazie per essere venuta martedì per la consulenza marketing.<br><br>Se hai 30 secondi, ci farebbe molto piacere una tua recensione su Google. Il tuo feedback ci aiuta tantissimo! ⭐<br><br>👉 [Lascia una recensione]</div><div class="wa-time">10:00 ✓✓</div></div>
+              <div style="clear:both"><div class="wa-msg in">Certo! Mi sono trovata benissimo, la lascio subito 😊</div><div class="wa-time" style="text-align:left">10:23</div></div>
+              <div style="clear:both"><div class="wa-msg out">Grazie mille Laura! ❤️ La tua opinione vale tantissimo per noi.</div><div class="wa-time">10:23 ✓✓</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card anim-up d4" style="margin-top:16px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-color:#FDE68A;text-align:center">
+          <div style="font-size:36px;margin-bottom:8px">⭐⭐⭐⭐⭐</div>
+          <div style="font-size:14px;font-weight:700;color:#92400E">Il 72% dei clienti soddisfatti lascia una recensione se glielo chiedi nel modo giusto, al momento giusto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S21: TRANSITION — CONCLUSIONE ══ -->
+<div class="slide" id="s22" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
+  <div class="transition-slide">
+    <div class="transition-icon anim-up">🚀</div>
+    <h2 class="transition-h anim-up d1">Ora hai visto<br><span style="color:var(--orange)">il potenziale</span></h2>
+    <p class="transition-sub anim-up d2">Cowork + Small Business Plugin + WhatsApp API.<br>Tre strumenti, un ecosistema. Il tuo business automatizzato.</p>
+    <div class="transition-badges anim-up d3">
+      <span class="badge o">🖥️ Cowork</span>
+      <span class="badge p">🏢 Plugin SB</span>
+      <span class="badge g">💬 WhatsApp</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S22: PIANO D'AZIONE ══ -->
+<div class="slide" id="s23">
+  <div class="si">
+    <div class="label anim-up">🎯 Piano d'azione</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Da domani: <span style="color:var(--orange)">cosa fare per iniziare</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:20px">Non automatizzare tutto in una volta. Un workflow alla volta, ottimizzato, poi si scala.</p>
+    <div class="tom-grid">
+      <div class="tom-col easy anim-up d2">
+        <div class="tom-header"><h4>🟢 Questa settimana</h4><span>Setup: 1-2 ore · ROI immediato</span></div>
+        <div class="tom-body">
+          <div class="tom-item"><div class="tom-dot"></div><div>Morning brief automatico<sub>Cowork · lunedì 8:30 su Slack</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Plugin SB installato<sub>1 click · gratis con Pro+</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Prima cartella automatizzata<sub>Cowork · 5 min setup</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Connessione QuickBooks<sub>OAuth · 5 min</sub></div></div>
+        </div>
+      </div>
+      <div class="tom-col med anim-up d3">
+        <div class="tom-header"><h4>🟡 Questo mese</h4><span>Setup: 4-8 ore · ROI 4 settimane</span></div>
+        <div class="tom-body">
+          <div class="tom-item"><div class="tom-dot"></div><div>Risposta WhatsApp automatica<sub>Meta Cloud API + Claude</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>/close-month attivo<sub>P&L automatico ogni mese</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Remind appuntamenti WA<sub>-75% no-show automatico</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Richiesta recensioni auto<sub>+300% recensioni Google</sub></div></div>
+        </div>
+      </div>
+      <div class="tom-col hard anim-up d4">
+        <div class="tom-header"><h4>🔵 Prossimi 90 giorni</h4><span>Setup: 1-3 giorni · Trasformazione</span></div>
+        <div class="tom-body">
+          <div class="tom-item"><div class="tom-dot"></div><div>Funnel WhatsApp end-to-end<sub>Lead → Nurturing → Vendita</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Riattivazione contatti massiva<sub>342+ messaggi personalizzati</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Customer journey AI<sub>Onboarding + upsell + referral</sub></div></div>
+          <div class="tom-item"><div class="tom-dot"></div><div>Dashboard KPI live<sub>Dati real-time da tutti i tool</sub></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S23: ERRORI ══ -->
+<div class="slide" id="s24">
+  <div class="si">
+    <div class="label anim-up">⚠️ Attenzione</div>
+    <h2 class="med anim-up d1" style="margin-bottom:20px">I 3 errori che fanno fallire<br><span style="color:var(--orange)">ogni progetto di automazione</span></h2>
+    <div class="err-grid">
+      <div class="err-card anim-up d2">
+        <div class="err-n">01</div>
+        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"Uso Claude solo come chatbot per scrivere testi e idee"</p></div>
+        <div class="err-ok"><span class="tg">✅ Soluzione</span><p>Claude è un <strong>agente operativo</strong>. Attiva Cowork, dagli accesso a una cartella e assegnagli task concreti da eseguire.</p></div>
+      </div>
+      <div class="err-card anim-up d3">
+        <div class="err-n">02</div>
+        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"Voglio automatizzare tutto subito, in tutta l'azienda"</p></div>
+        <div class="err-ok"><span class="tg">✅ Soluzione</span><p><strong>Inizia da 1 workflow.</strong> Ottimizzalo per 2 settimane, misura i risultati, poi aggiungi il secondo.</p></div>
+      </div>
+      <div class="err-card anim-up d4">
+        <div class="err-n">03</div>
+        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"L'AI fa tutto da sola, non devo controllare niente"</p></div>
+        <div class="err-ok"><span class="tg">✅ Soluzione</span><p><strong>L'AI sbaglia.</strong> Imposta revisione obbligatoria per azioni che toccano clienti o denaro.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S24: SERVIZI ══ -->
+<div class="slide" id="s25">
+  <div class="si">
+    <div class="label anim-up">🚀 I miei servizi</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Cosa posso fare <span style="color:var(--orange)">per la tua azienda</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:20px">Soluzioni complete per automatizzare ogni fase del tuo business.</p>
+    <div class="serv-grid">
+      <div class="serv-card anim-up d2">
+        <div class="serv-icon">💬</div>
+        <h4>WhatsApp Marketing</h4>
+        <p>Sequenze automatizzate per follow-up immediati, engagement elevato e conversioni dirette.</p>
+        <div class="serv-tags"><span class="serv-tag">Broadcast</span><span class="serv-tag">Chatbot AI</span><span class="serv-tag">Nurturing</span></div>
+      </div>
+      <div class="serv-card anim-up d2">
+        <div class="serv-icon">🚀</div>
+        <h4>Automazione Funnel</h4>
+        <p>Ogni fase del funnel automatizzata: dalla cattura del lead alla chiusura, senza intervento manuale.</p>
+        <div class="serv-tags"><span class="serv-tag">Lead gen</span><span class="serv-tag">Nurturing</span><span class="serv-tag">Conversion</span></div>
+      </div>
+      <div class="serv-card anim-up d2">
+        <div class="serv-icon">🔗</div>
+        <h4>Integrazioni SaaS</h4>
+        <p>Connetto tutti i tuoi tool — CRM, e-commerce, email, ads — in un ecosistema sincronizzato.</p>
+        <div class="serv-tags"><span class="serv-tag">CRM</span><span class="serv-tag">API custom</span><span class="serv-tag">Multi-piattaforma</span></div>
+      </div>
+      <div class="serv-card anim-up d3">
+        <div class="serv-icon">🤖</div>
+        <h4>AI & Chatbot</h4>
+        <p>Chatbot intelligenti con Claude per gestione clienti 24/7 e qualificazione lead automatica.</p>
+        <div class="serv-tags"><span class="serv-tag">Claude / GPT</span><span class="serv-tag">Qualificazione</span><span class="serv-tag">Multicanale</span></div>
+      </div>
+      <div class="serv-card anim-up d3">
+        <div class="serv-icon">🗺️</div>
+        <h4>Customer Journey</h4>
+        <p>Mappo e automatizzo l'intero percorso cliente: dal primo contatto alla fidelizzazione.</p>
+        <div class="serv-tags"><span class="serv-tag">Onboarding</span><span class="serv-tag">Retention</span><span class="serv-tag">Upsell</span></div>
+      </div>
+      <div class="serv-card anim-up d3">
+        <div class="serv-icon">📊</div>
+        <h4>Reportistica KPI</h4>
+        <p>Dashboard con KPI aggiornati in tempo reale. Decidi su dati concreti, non su Excel.</p>
+        <div class="serv-tags"><span class="serv-tag">Dashboard</span><span class="serv-tag">Report auto</span><span class="serv-tag">Alert</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S25: PIANI ══ -->
+<div class="slide" id="s26">
+  <div class="si">
+    <div class="label anim-up">💼 Come lavoriamo insieme</div>
+    <h2 class="med anim-up d1" style="margin-bottom:6px">Tre modalità, <span style="color:var(--orange)">un obiettivo</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:20px">Scegli la durata in base alla complessità del tuo progetto.</p>
+    <div class="piani-grid">
+      <div class="piano-card anim-up d2">
+        <div class="piano-mesi-wrap">
+          <div class="piano-mesi-n">3</div>
+          <div class="piano-mesi-l">MESI</div>
+        </div>
+        <div class="piano-name">🚀 Avvio</div>
+        <div class="piano-desc">Per chi vuole risolvere un processo critico e vederlo funzionare</div>
+        <div class="piano-body">
+          <div class="piano-feat">Sviluppo del sistema su misura</div>
+          <div class="piano-feat">Gestione, manutenzione e aggiornamenti</div>
+          <div class="piano-feat">Assistenza via WhatsApp (entro 48h)</div>
+          <div class="piano-feat">Automazioni extra incluse per 3 mesi</div>
+        </div>
+      </div>
+      <div class="piano-card best anim-up d3">
+        <div class="piano-tag">⭐ Consigliato</div>
+        <div class="piano-mesi-wrap">
+          <div class="piano-mesi-n">6</div>
+          <div class="piano-mesi-l">MESI</div>
+        </div>
+        <div class="piano-name">📈 Crescita</div>
+        <div class="piano-desc">Per chi vuole un sistema integrato e gestito nel tempo</div>
+        <div class="piano-body">
+          <div class="piano-feat">Sviluppo di tutti i sistemi necessari</div>
+          <div class="piano-feat">Gestione, manutenzione e aggiornamenti</div>
+          <div class="piano-feat">Assistenza <strong>prioritaria</strong> WhatsApp (24h)</div>
+          <div class="piano-feat">Automazioni extra incluse per 6 mesi</div>
+        </div>
+      </div>
+      <div class="piano-card anim-up d4">
+        <div class="piano-mesi-wrap">
+          <div class="piano-mesi-n">12</div>
+          <div class="piano-mesi-l">MESI</div>
+        </div>
+        <div class="piano-name">🏆 Espansione</div>
+        <div class="piano-desc">Per chi vuole delegare interamente l'automazione aziendale</div>
+        <div class="piano-body">
+          <div class="piano-feat">Sviluppo completo di tutti i sistemi</div>
+          <div class="piano-feat">Gestione, manutenzione e aggiornamenti</div>
+          <div class="piano-feat">Assistenza <strong>prioritaria</strong> WhatsApp (24h)</div>
+          <div class="piano-feat">Automazioni extra incluse per 12 mesi</div>
+        </div>
+      </div>
+    </div>
+    <div class="garanzia-bar anim-up d5">
+      <span class="ic">🛡️</span>
+      <div>
+        <strong>Garanzia soddisfatto o rimborsato — 30 giorni</strong>
+        <span>Se entro 30 giorni non sei soddisfatto, rimborso integrale. Nessuna giustificazione richiesta.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S26: CTA ══ -->
+<div class="slide" id="s27">
+  <div class="cta-layout">
+    <div class="cta-photo anim-up d1">
+      <img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao">
+    </div>
+    <div class="cta-content">
+      <div class="anim-up" style="margin-bottom:16px"><span class="badge o">🚀 Passo successivo</span></div>
+      <h2 class="anim-up d1">Pronto ad automatizzare<br><em>il tuo business?</em></h2>
+      <p class="anim-up d2">Consulenza gratuita di 30 minuti. Analizziamo insieme i tuoi processi e identifichiamo il primo workflow da automatizzare — con risultati visibili entro la prima settimana.</p>
+      <a href="https://ilao.it/go" class="cta-btn anim-up d3" target="_blank">📅 Prenota la consulenza gratuita →</a>
+      <div class="social-row anim-up d4">
+        <a href="https://www.linkedin.com/in/ivanlaomarketing/" class="social-link" target="_blank">💼 LinkedIn</a>
+        <a href="https://www.instagram.com/ivanlaomarketing/" class="social-link" target="_blank">📸 Instagram</a>
+        <a href="https://www.youtube.com/@IvanLaoMarketing" class="social-link" target="_blank">▶️ YouTube</a>
+        <a href="https://t.me/IvanLaoMarketingAutomation" class="social-link" target="_blank">✈️ Telegram</a>
+        <a href="https://www.facebook.com/groups/makeitalia" class="social-link" target="_blank">👥 Make Italia</a>
+      </div>
+      <div class="anim-up d5" style="font-size:13px;color:var(--muted)">
+        🌐 laoivan.com &nbsp;·&nbsp; 📧 info@laoivan.com &nbsp;·&nbsp; 📍 Firenze, Italia
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slides -->
+
+<div id="botnav">
+  <button class="nbtn" id="prevBtn" onclick="prevSlide()" disabled>←</button>
+  <div id="dots"></div>
+  <button class="nbtn" id="nextBtn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+const TOTAL = 27;
+let cur = 1, d1r = false, d2r = false, d3r = false;
+
+function goTo(n) {
+  if (n < 1 || n > TOTAL) return;
+  const prev = document.querySelector('.slide.active');
+  if (prev) { prev.classList.remove('active'); prev.classList.add('exit'); setTimeout(() => prev.classList.remove('exit'), 400); }
+  cur = n;
+  document.getElementById('s' + cur).classList.add('active');
+  document.getElementById('counter').textContent = cur + ' / ' + TOTAL;
+  document.getElementById('prog').style.width = (cur / TOTAL * 100) + '%';
+  document.getElementById('prevBtn').disabled = cur === 1;
+  document.getElementById('nextBtn').disabled = cur === TOTAL;
+  updateDots(); updateTimer();
+}
+function nextSlide() { goTo(cur + 1); }
+function prevSlide() { goTo(cur - 1); }
+function updateDots() {
+  const dc = document.getElementById('dots'); dc.innerHTML = '';
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === cur ? ' active' : '');
+    d.onclick = () => goTo(i); dc.appendChild(d);
+  }
+}
+const timings = [0,1,1,1,3,4,5,3,1,4,6,4,1,3,4,6,1,3,6,4,4,4,1,4,4,3,3,4,3];
+function updateTimer() {
+  const elapsed = timings.slice(0, cur).reduce((a,b)=>a+b,0);
+  const rem = Math.max(0, 75 - elapsed);
+  document.getElementById('timer-badge').textContent = '⏱ ~' + rem + ' min rimasti';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+function runDemo1() {
+  if (d1r) return; d1r = true;
+  const btn = document.getElementById('demo1-btn');
+  btn.disabled = true; btn.textContent = '⏳ Esecuzione in corso...';
+  const claudeArea = document.getElementById('claude-area');
+  const cont = document.getElementById('steps-container');
+  const res = document.getElementById('cw-result');
+  cont.innerHTML = '';
+  res.style.display = 'none';
+  claudeArea.style.display = 'block';
+  const steps = [
+    { txt: 'Connessione a Gmail', time: '0.3s', d: 400 },
+    { txt: '47 email trovate (ultimi 7 giorni)', time: '1.2s', d: 1100 },
+    { txt: 'Classificazione: urgente / normale / info', time: '3.8s', d: 2200 },
+    { txt: 'Bozze risposta per 12 email urgenti', time: '8.1s', d: 3500 },
+    { txt: 'Creazione Report_Settimana22.pdf', time: '15.4s', d: 5000 },
+    { txt: 'Salvataggio sul Desktop', time: '18.0s', d: 6400 },
+  ];
+  steps.forEach((s, idx) => {
+    setTimeout(() => {
+      const row = document.createElement('div');
+      row.className = 'cw-step running';
+      row.innerHTML = '<div class="cw-step-icn">⋯</div>' + s.txt + '<span class="cw-step-time">' + s.time + '</span>';
+      cont.appendChild(row);
+      setTimeout(() => {
+        row.classList.remove('running');
+        row.classList.add('done');
+        row.querySelector('.cw-step-icn').textContent = '✓';
+      }, 450);
+      if (idx === steps.length - 1) {
+        setTimeout(() => {
+          res.innerHTML = '✅ <strong>Completato in 18 secondi.</strong><br>📊 Report_Settimana22.pdf · 📧 47 email classificate · 📅 3 follow-up domani 9:00';
+          res.style.display = 'block';
+          btn.textContent = '🔄 Ri-esegui Demo';
+          btn.disabled = false;
+          d1r = false;
+        }, 700);
+      }
+    }, s.d);
+  });
+}
+
+function runDemo2() {
+  if (d2r) return; d2r = true;
+  const btn = document.getElementById('demo2-btn');
+  btn.disabled = true; btn.textContent = '⏳ Caricamento dati...';
+  ['sbc1','sbc2','sbc3','sbc4'].forEach(id => document.getElementById(id).classList.remove('show'));
+  ['sbc1','sbc2','sbc3','sbc4'].forEach((id, i) => {
+    setTimeout(() => {
+      document.getElementById(id).classList.add('show');
+      if (i === 3) { btn.textContent = '🔄 Ri-esegui /monday-brief'; btn.disabled = false; d2r = false; }
+    }, 700 + i * 550);
+  });
+}
+
+function runDemo3() {
+  if (d3r) return; d3r = true;
+  const btn = document.getElementById('demo3-btn');
+  btn.disabled = true; btn.textContent = '⏳ Animazione...';
+  [1,2,3,4,5,6].forEach(n => document.getElementById('fn'+n).classList.remove('lit'));
+  [1,2,3,4,5].forEach(a => document.getElementById('fa'+a).classList.remove('lit'));
+  [1,2,3,4,5,6].forEach((n, i) => {
+    setTimeout(() => {
+      document.getElementById('fn'+n).classList.add('lit');
+      if (i < 5) setTimeout(() => document.getElementById('fa'+n).classList.add('lit'), 220);
+      if (i === 5) setTimeout(() => { btn.textContent = '🔄 Ri-anima il flusso'; btn.disabled = false; d3r = false; }, 600);
+    }, i * 620);
+  });
+}
+
+document.querySelectorAll('#sb-cards .sb-card').forEach(c => c.classList.add('show'));
+updateDots(); updateTimer();
+</script>
+</body>
+</html>
