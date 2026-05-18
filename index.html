@@ -22,7 +22,8 @@
   --shadow-xl:0 25px 70px rgba(0,0,0,.15);
   --r:18px;--r-s:12px;--r-l:28px;
 }
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh;width:100vw;user-select:none;font-size:20px}
+html,body{overscroll-behavior:none;touch-action:manipulation}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh;height:100dvh;width:100vw;user-select:none;font-size:20px}
 
 #prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--orange),#FF8B5C);transition:width .4s ease;z-index:200;border-radius:0 4px 4px 0;box-shadow:0 0 12px rgba(232,93,36,.4)}
 
@@ -1701,6 +1702,12 @@ function updateTimer() {
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
   if (e.key === 'ArrowLeft') prevSlide();
+});
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, {passive: true});
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].screenX - tx;
+  if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
 });
 
 function runDemo1() {
