@@ -1679,7 +1679,9 @@ function goTo(n) {
   const prev = document.querySelector('.slide.active');
   if (prev) { prev.classList.remove('active'); prev.classList.add('exit'); setTimeout(() => prev.classList.remove('exit'), 400); }
   cur = n;
-  document.getElementById('s' + cur).classList.add('active');
+  const cs = document.getElementById('s' + cur);
+  cs.classList.add('active');
+  cs.scrollTop = 0;
   document.getElementById('counter').textContent = cur + ' / ' + TOTAL;
   document.getElementById('prog').style.width = (cur / TOTAL * 100) + '%';
   document.getElementById('prevBtn').disabled = cur === 1;
@@ -1706,11 +1708,23 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
   if (e.key === 'ArrowLeft') prevSlide();
 });
-let tx = 0;
-document.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, {passive: true});
+let tx = 0, ty = 0, tt = 0;
+document.addEventListener('touchstart', e => {
+  if (e.target.closest('button, a, input, textarea, .nbtn')) return;
+  tx = e.changedTouches[0].screenX;
+  ty = e.changedTouches[0].screenY;
+  tt = Date.now();
+}, {passive: true});
 document.addEventListener('touchend', e => {
+  if (!tt) return;
   const dx = e.changedTouches[0].screenX - tx;
-  if (Math.abs(dx) > 50) { dx < 0 ? nextSlide() : prevSlide(); }
+  const dy = e.changedTouches[0].screenY - ty;
+  const dt = Date.now() - tt;
+  tt = 0;
+  if (dt > 600) return;
+  if (Math.abs(dx) < 60) return;
+  if (Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  dx < 0 ? nextSlide() : prevSlide();
 });
 
 function runDemo1() {
