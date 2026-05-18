@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Il tuo Assistente AI che Lavora per Te — Ivan Lao</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -278,6 +280,23 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .testi-author{padding-top:14px;border-top:1px solid var(--border)}
 .testi-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;color:var(--text)}
 .testi-role{font-size:12px;color:var(--muted);margin-top:2px}
+.testi-stars{display:flex;gap:3px;margin-bottom:12px;font-size:16px;color:#FBBF24}
+.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;font-family:'Outfit',sans-serif;flex-shrink:0}
+.testi-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.testi-meta{font-size:11px;color:var(--muted);margin-top:6px}
+.google-btn{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);padding:12px 24px;font-size:15px;font-weight:700;color:var(--text);text-decoration:none;box-shadow:var(--shadow-s);transition:all .25s;margin-top:24px}
+.google-btn:hover{box-shadow:var(--shadow-m);transform:translateY(-2px);border-color:var(--orange-m)}
+.google-btn .g-icon{font-size:22px}
+
+/* ── CLAUDE INTRO ── */
+.claude-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:42px;align-items:center;width:100%}
+.claude-img{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-l);border:1px solid var(--border)}
+.claude-img img{width:100%;display:block}
+.claude-features{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.claude-feat{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--white);border:1px solid var(--border);border-radius:var(--r-s);box-shadow:var(--shadow-s);transition:all .25s}
+.claude-feat:hover{transform:translateX(6px);border-color:var(--orange-m)}
+.claude-feat .ico{font-size:24px;flex-shrink:0}
+.claude-feat span{font-size:15px}
 
 /* ── SB DEMO ── */
 .sb-demo-wrap{width:100%;max-width:1100px}
@@ -568,7 +587,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
   <div class="nav-right">
     <div id="timer-badge">⏱ 60 min</div>
-    <div id="counter">1 / 30</div>
+    <div id="counter">1 / 32</div>
   </div>
 </div>
 
@@ -636,7 +655,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
           <div class="about-role">Marketing Automation Specialist · Make Certified Partner & n8n Expert · Meta Tech Provider<br>Firenze, Italia — attivo nel settore dal 2015</div>
         </div>
         <div class="stat-grid anim-up d3">
-          <div class="stat-card"><div class="stat-n">10+</div><div class="stat-l">anni di esperienza<br>nel settore</div></div>
+          <div class="stat-card"><div class="stat-n">15+</div><div class="stat-l">anni di esperienza<br>nel settore</div></div>
           <div class="stat-card"><div class="stat-n">5.0★</div><div class="stat-l">rating Google<br>recensioni verificate</div></div>
           <div class="stat-card"><div class="stat-n">4/4</div><div class="stat-l">livelli Make<br>certificati ufficialmente</div></div>
         </div>
@@ -717,8 +736,30 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S7: SOLUZIONE ══ -->
-<div class="slide" id="s7">
+<!-- ══ S7: CLAUDE — LA SOLUZIONE ══ -->
+<div class="slide" id="s7" style="background:radial-gradient(ellipse at center,#F0EDFF 0%,var(--bg) 70%)">
+  <div class="si">
+    <div class="label purple anim-up">🤖 La Soluzione</div>
+    <div class="claude-layout">
+      <div>
+        <h2 class="med anim-up d1">Ti presento <span style="color:var(--purple)">Claude</span></h2>
+        <p class="sub anim-up d2">L'assistente AI di Anthropic che non si limita a rispondere — lavora per te. Chat, Cowork e Code: tre modalità per ogni esigenza del tuo business.</p>
+        <div class="claude-features">
+          <div class="claude-feat anim-up d2"><span class="ico">💬</span><span><strong>Chat</strong> — Risposte intelligenti, analisi, strategia</span></div>
+          <div class="claude-feat anim-up d3"><span class="ico">🖥️</span><span><strong>Cowork</strong> — Esegue task sul tuo computer in autonomia</span></div>
+          <div class="claude-feat anim-up d4"><span class="ico">⌨️</span><span><strong>Code</strong> — Scrive, modifica e deploya codice reale</span></div>
+          <div class="claude-feat anim-up d5"><span class="ico">🔒</span><span><strong>Sicuro</strong> — Chiede sempre conferma prima di agire</span></div>
+        </div>
+      </div>
+      <div class="claude-img anim-up d3">
+        <img src="images/Claude 101.jpeg" alt="Claude Cowork Interface">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S8: SOLUZIONE DETTAGLIO ══ -->
+<div class="slide" id="s8">
   <div class="si">
     <div class="label anim-up">✅ La Soluzione</div>
     <div class="sol-layout">
@@ -743,8 +784,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S8: TRANSITION — MODULO COWORK ══ -->
-<div class="slide" id="s8" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
+<!-- ══ S9: TRANSITION — MODULO COWORK ══ -->
+<div class="slide" id="s9" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">🖥️</div>
     <h2 class="transition-h anim-up d1">Modulo 1<br><span style="color:var(--orange)">Claude Cowork</span></h2>
@@ -758,8 +799,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S9: COWORK INTRO ══ -->
-<div class="slide" id="s9">
+<!-- ══ S10: COWORK INTRO ══ -->
+<div class="slide" id="s10">
   <div class="si">
     <div class="label anim-up">Modulo 1 — Claude Cowork</div>
     <div class="cowork-layout">
@@ -817,8 +858,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S10: COWORK DEMO ══ -->
-<div class="slide" id="s10">
+<!-- ══ S11: COWORK DEMO ══ -->
+<div class="slide" id="s11">
   <div class="si" style="max-width:1200px">
     <div class="label anim-up">🎬 Demo interattiva — Cowork in azione</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Scenario reale: <span style="color:var(--orange)">triage email + report PDF</span></h2>
@@ -858,8 +899,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S11: CASO REALE COWORK ══ -->
-<div class="slide" id="s11">
+<!-- ══ S12: CASO REALE COWORK ══ -->
+<div class="slide" id="s12">
   <div class="si">
     <div class="label anim-up">📊 Caso reale — Cowork</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Studio professionale, 3 persone<br><span style="color:var(--orange)">Prima e dopo l'automazione</span></h2>
@@ -885,8 +926,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S12: TRANSITION — MODULO SB ══ -->
-<div class="slide" id="s12" style="background:radial-gradient(ellipse at center,#F0EDFF 0%,var(--bg) 70%)">
+<!-- ══ S13: TRANSITION — MODULO SB ══ -->
+<div class="slide" id="s13" style="background:radial-gradient(ellipse at center,#F0EDFF 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">🏢</div>
     <h2 class="transition-h anim-up d1">Modulo 2<br><span style="color:var(--purple)">Plugin Small Business</span></h2>
@@ -900,8 +941,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S13: INSTALLATION GUIDE ══ -->
-<div class="slide" id="s13">
+<!-- ══ S14: INSTALLATION GUIDE ══ -->
+<div class="slide" id="s14">
   <div class="si">
     <div class="label purple anim-up">Guida Installazione — Plugin Small Business</div>
     <h2 class="med anim-up d1">Pronto in <span style="color:var(--purple)">3 semplici passaggi</span></h2>
@@ -969,8 +1010,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S14: SB INTRO ══ -->
-<div class="slide" id="s14">
+<!-- ══ S15: SB INTRO ══ -->
+<div class="slide" id="s15">
   <div class="si">
     <div class="label purple anim-up">Modulo 2 — Plugin Small Business</div>
     <div class="sb-layout">
@@ -1008,8 +1049,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S15: 4 WORKFLOW END-TO-END ══ -->
-<div class="slide" id="s15">
+<!-- ══ S16: 4 WORKFLOW END-TO-END ══ -->
+<div class="slide" id="s16">
   <div class="si">
     <div class="label purple anim-up">🚀 Non risponde — esegue</div>
     <h2 class="med anim-up d1">4 workflow <span style="color:var(--purple)">end-to-end</span> pronti all'uso</h2>
@@ -1049,8 +1090,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S16: OUTPUT REALE — MORNING BRIEF SU SLACK ══ -->
-<div class="slide" id="s16">
+<!-- ══ S17: OUTPUT REALE — MORNING BRIEF SU SLACK ══ -->
+<div class="slide" id="s17">
   <div class="si">
     <div class="label purple anim-up">📄 Output reale — Anthropic</div>
     <h2 class="med anim-up d1">Cosa Claude <span style="color:var(--purple)">consegna davvero</span></h2>
@@ -1062,8 +1103,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S17: TESTIMONIANZE REALI ══ -->
-<div class="slide" id="s17">
+<!-- ══ S18: TESTIMONIANZE REALI ══ -->
+<div class="slide" id="s18">
   <div class="si">
     <div class="label purple anim-up">⭐ Storie reali</div>
     <h2 class="med anim-up d1">Quello che dicono <span style="color:var(--purple)">i clienti Claude</span></h2>
@@ -1102,8 +1143,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S18: SB DEMO ══ -->
-<div class="slide" id="s18">
+<!-- ══ S19: SB DEMO ══ -->
+<div class="slide" id="s19">
   <div class="si sb-demo-wrap">
     <div class="label purple anim-up">🎬 Demo interattiva — Plugin Small Business</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Scenario: <span style="color:var(--purple)">/monday-brief</span></h2>
@@ -1125,8 +1166,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S15: TRANSITION — MODULO WA ══ -->
-<div class="slide" id="s19" style="background:radial-gradient(ellipse at center,#EDFBF3 0%,var(--bg) 70%)">
+<!-- ══ S16: TRANSITION — MODULO WA ══ -->
+<div class="slide" id="s20" style="background:radial-gradient(ellipse at center,#EDFBF3 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">💬</div>
     <h2 class="transition-h anim-up d1">Modulo 3<br><span style="color:var(--wa-d)">WhatsApp + Claude</span></h2>
@@ -1140,8 +1181,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S16: WA INTRO ══ -->
-<div class="slide" id="s20">
+<!-- ══ S17: WA INTRO ══ -->
+<div class="slide" id="s21">
   <div class="si">
     <div class="label green anim-up">Modulo 3 — WhatsApp + Claude</div>
     <div class="wa-layout">
@@ -1178,8 +1219,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S17: WA FLOW ══ -->
-<div class="slide" id="s21">
+<!-- ══ S18: WA FLOW ══ -->
+<div class="slide" id="s22">
   <div class="si flow-wrap">
     <div class="label green anim-up">🎬 Demo — Flusso WhatsApp Meta Cloud API</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Come funziona l'automazione end-to-end</h2>
@@ -1210,8 +1251,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S18: MESSAGGI MASSIVI RIATTIVAZIONE WA + COWORK ══ -->
-<div class="slide" id="s22">
+<!-- ══ S19: MESSAGGI MASSIVI RIATTIVAZIONE WA + COWORK ══ -->
+<div class="slide" id="s23">
   <div class="si">
     <div class="label green anim-up">📢 Automazione — Riattivazione contatti</div>
     <h2 class="med anim-up d1">Messaggi massivi di riattivazione<br><span style="color:var(--wa-d)">con WhatsApp + Claude Cowork</span></h2>
@@ -1256,8 +1297,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S19: REMIND APPUNTAMENTI (era recupero carrelli) ══ -->
-<div class="slide" id="s23">
+<!-- ══ S20: REMIND APPUNTAMENTI (era recupero carrelli) ══ -->
+<div class="slide" id="s24">
   <div class="si">
     <div class="label green anim-up">📅 Automazione — Remind appuntamenti</div>
     <h2 class="med anim-up d1" style="margin-bottom:16px">Remind automatico appuntamenti<br><span style="color:var(--wa-d)">via WhatsApp</span></h2>
@@ -1293,8 +1334,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S20: RICHIESTA RECENSIONI ══ -->
-<div class="slide" id="s24">
+<!-- ══ S21: RICHIESTA RECENSIONI ══ -->
+<div class="slide" id="s25">
   <div class="si">
     <div class="label green anim-up">⭐ Automazione — Richiesta recensioni</div>
     <h2 class="med anim-up d1" style="margin-bottom:16px">Recensioni Google automatiche<br><span style="color:var(--wa-d)">via WhatsApp post-servizio</span></h2>
@@ -1335,8 +1376,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S21: TRANSITION — CONCLUSIONE ══ -->
-<div class="slide" id="s25" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
+<!-- ══ S22: TRANSITION — CONCLUSIONE ══ -->
+<div class="slide" id="s26" style="background:radial-gradient(ellipse at center,#FFF0E5 0%,var(--bg) 70%)">
   <div class="transition-slide">
     <div class="transition-icon anim-up">🚀</div>
     <h2 class="transition-h anim-up d1">Ora hai visto<br><span style="color:var(--orange)">il potenziale</span></h2>
@@ -1349,8 +1390,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S22: PIANO D'AZIONE ══ -->
-<div class="slide" id="s26">
+<!-- ══ S23: PIANO D'AZIONE ══ -->
+<div class="slide" id="s27">
   <div class="si">
     <div class="label anim-up">🎯 Piano d'azione</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Da domani: <span style="color:var(--orange)">cosa fare per iniziare</span></h2>
@@ -1387,8 +1428,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S23: ERRORI ══ -->
-<div class="slide" id="s27">
+<!-- ══ S24: ERRORI ══ -->
+<div class="slide" id="s28">
   <div class="si">
     <div class="label anim-up">⚠️ Attenzione</div>
     <h2 class="med anim-up d1" style="margin-bottom:20px">I 3 errori che fanno fallire<br><span style="color:var(--orange)">ogni progetto di automazione</span></h2>
@@ -1412,8 +1453,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S24: SERVIZI ══ -->
-<div class="slide" id="s28">
+<!-- ══ S25: SERVIZI ══ -->
+<div class="slide" id="s29">
   <div class="si">
     <div class="label anim-up">🚀 I miei servizi</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Cosa posso fare <span style="color:var(--orange)">per la tua azienda</span></h2>
@@ -1459,8 +1500,80 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S25: PIANI ══ -->
-<div class="slide" id="s29">
+<!-- ══ TESTIMONIANZE ══ -->
+<div class="slide" id="s30">
+  <div class="si">
+    <div class="label anim-up">⭐ Testimonianze</div>
+    <h2 class="med anim-up d1">Cosa dicono i <span style="color:var(--orange)">miei clienti</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:24px">5.0 stelle su Google — 100% recensioni a 5 stelle verificate.</p>
+    <div class="testi-grid">
+      <div class="testi-card anim-up d2">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#9333EA,#7C3AED)">PL</div>
+          <div><div class="testi-name">Paolo Lux</div><div class="testi-role">Local Guide · 18 recensioni</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Persona estremamente competente, disponibile e concreta. Sa spiegare con chiarezza anche gli aspetti più tecnici. Mi ha aiutato a strutturare un sistema davvero professionale. Super consigliato!"</div>
+        <div class="testi-meta">12 settimane fa</div>
+      </div>
+      <div class="testi-card anim-up d2">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#3B82F6,#2563EB)">AA</div>
+          <div><div class="testi-name">Academy Assomè</div><div class="testi-role">1 recensione</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Professionalità e competenza di altissimo livello, unite a una straordinaria capacità di integrare e gestire diverse piattaforme in modo fluido ed efficace. Tempi di esecuzione sempre puntuali."</div>
+        <div class="testi-meta">7 settimane fa</div>
+      </div>
+      <div class="testi-card anim-up d2">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#22C55E,#16A34A)">NL</div>
+          <div><div class="testi-name">Nicola Lampitelli</div><div class="testi-role">3 recensioni</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Professionista eccezionale nel campo dell'automazione. Ha trasformato i nostri processi aziendali con soluzioni innovative e personalizzate. Risultati concreti e misurabili fin da subito."</div>
+        <div class="testi-meta">5 settimane fa</div>
+      </div>
+      <div class="testi-card anim-up d3">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#F97316,#EA580C)">AP</div>
+          <div><div class="testi-name">Andrea Prando</div><div class="testi-role">2 recensioni</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Collaborazione fantastica. Ivan ha implementato un sistema di automazione completo che ci ha permesso di risparmiare ore di lavoro ogni settimana. Professionale, puntuale e sempre disponibile."</div>
+        <div class="testi-meta">3 settimane fa</div>
+      </div>
+      <div class="testi-card anim-up d3">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#14B8A6,#0D9488)">OD</div>
+          <div><div class="testi-name">Oscar Dalvit</div><div class="testi-role">5 recensioni</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Conoscenza profonda degli strumenti di automazione e sa come applicarli concretamente al business. Ha risolto problemi che sembravano impossibili con soluzioni eleganti e scalabili."</div>
+        <div class="testi-meta">2 settimane fa</div>
+      </div>
+      <div class="testi-card anim-up d3">
+        <div class="testi-header">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#EC4899,#DB2777)">SC</div>
+          <div><div class="testi-name">Saverio Cormio</div><div class="testi-role">4 recensioni</div></div>
+        </div>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Ha trasformato il nostro modo di lavorare con automazioni intelligenti che hanno ridotto drasticamente i tempi operativi. Capacità straordinaria di analizzare i processi. Risultati dalla prima settimana."</div>
+        <div class="testi-meta">1 settimana fa</div>
+      </div>
+    </div>
+    <div style="text-align:center" class="anim-up d4">
+      <a href="https://share.google/z4p6YaV6l3lSf2zhl" target="_blank" class="google-btn">
+        <span class="g-icon">🔍</span>
+        Vedi tutte le recensioni su Google
+        <span style="font-size:14px;color:var(--muted)">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S26: PIANI ══ -->
+<div class="slide" id="s31">
   <div class="si">
     <div class="label anim-up">💼 Come lavoriamo insieme</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Tre modalità, <span style="color:var(--orange)">un obiettivo</span></h2>
@@ -1520,15 +1633,15 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S26: CTA ══ -->
-<div class="slide" id="s30">
+<!-- ══ S27: CTA ══ -->
+<div class="slide" id="s32">
   <div class="cta-layout">
     <div class="cta-photo anim-up d1">
       <img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao">
     </div>
     <div class="cta-content">
       <div class="anim-up" style="margin-bottom:16px"><span class="badge o">🚀 Passo successivo</span></div>
-      <h2 class="anim-up d1">Pronto ad automatizzare<br><em>il tuo business?</em></h2>
+      <h2 class="anim-up d1">Porta l'automazione<br><em>nel tuo business</em></h2>
       <p class="anim-up d2">Consulenza gratuita di 30 minuti. Analizziamo insieme i tuoi processi e identifichiamo il primo workflow da automatizzare — con risultati visibili entro la prima settimana.</p>
       <a href="https://ilao.it/go" class="cta-btn anim-up d3" target="_blank">📅 Prenota la consulenza gratuita →</a>
       <div class="social-row anim-up d4">
@@ -1554,7 +1667,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <script>
-const TOTAL = 30;
+const TOTAL = 32;
 let cur = 1, d1r = false, d2r = false, d3r = false;
 
 function goTo(n) {
@@ -1579,7 +1692,7 @@ function updateDots() {
     d.onclick = () => goTo(i); dc.appendChild(d);
   }
 }
-const timings = [0,1,1,1,3,4,5,3,1,4,6,4,1,3,4,3,4,3,6,1,3,6,4,4,4,1,4,4,3,3,4,3];
+const timings = [0,1,1,1,3,4,5,3,3,1,4,6,4,1,3,4,3,4,3,6,1,3,6,4,4,4,1,4,4,3,3,3,4,3];
 function updateTimer() {
   const elapsed = timings.slice(0, cur).reduce((a,b)=>a+b,0);
   const rem = Math.max(0, 75 - elapsed);
