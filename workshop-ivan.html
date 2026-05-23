@@ -405,13 +405,12 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .wa-attach,.wa-mic{font-size:18px;opacity:.7}
 
 /* ── CONNECT ANIMATION (transition slides s9, s13, s20) ── */
-.connect-anim{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:100%;max-width:520px;height:160px;margin:18px auto 28px}
-.connect-orb{position:relative;z-index:3;width:120px;height:120px;border-radius:50%;background:#fff;border:1px solid var(--border);box-shadow:0 14px 38px rgba(0,0,0,.12),0 4px 10px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-size:54px;font-family:'Outfit',sans-serif;font-weight:800;color:var(--text);will-change:transform;opacity:0;transition:opacity .5s ease,transform 1.6s cubic-bezier(.34,1.4,.5,1)}
+.connect-anim{position:relative;display:flex;align-items:center;justify-content:center;gap:22px;width:100%;max-width:520px;height:160px;margin:18px auto 28px}
+.connect-orb{position:relative;z-index:3;width:110px;height:110px;border-radius:24px;background:#fff;border:1px solid var(--border);box-shadow:0 18px 44px rgba(0,0,0,.16),0 6px 14px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;padding:14px;font-size:54px;font-family:'Outfit',sans-serif;font-weight:800;color:var(--text);will-change:transform;opacity:0;transition:opacity .5s ease,transform 1.6s cubic-bezier(.34,1.4,.5,1)}
 .connect-orb.left{transform:translateX(-160px) scale(.85)}
 .connect-orb.right{transform:translateX(160px) scale(.85)}
-.connect-orb img{width:74%;height:74%;object-fit:contain}
-.connect-orb-wa{padding:0}
-.connect-orb-wa img{width:80%;height:80%}
+.connect-orb img{width:100%;height:100%;object-fit:contain;border-radius:12px}
+.connect-orb-wa{padding:10px}
 .slide.active .connect-orb{opacity:1}
 .slide.active .connect-orb.left{transform:translateX(-46px) scale(1);transition-delay:.4s}
 .slide.active .connect-orb.right{transform:translateX(46px) scale(1);transition-delay:.4s}
@@ -421,10 +420,10 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .slide.active .connect-link{transform:translate(-50%,-50%) scaleX(1)}
 .connect-spark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:32px;z-index:4;opacity:0;transition:opacity .6s ease 2.1s,transform .6s ease 2.1s;animation:none}
 .slide.active .connect-spark{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
-.connect-orb-claude{background:#fff;color:#cc785c}
-.connect-orb-cowork{background:linear-gradient(135deg,#f8f5f0,#fff);color:var(--orange)}
-.connect-orb-sb{background:linear-gradient(135deg,#f4f0ff,#fff);color:var(--purple)}
-.connect-orb-wa{background:linear-gradient(135deg,#e6fbf0,#fff);color:var(--wa-d)}
+.connect-orb-claude,.connect-orb-cowork,.connect-orb-sb,.connect-orb-wa{background:#fff}
+/* fallback emoji size quando il children è testo/emoji invece di img */
+.connect-orb-cowork{font-size:48px;color:var(--orange)}
+.connect-orb-sb{font-size:48px;color:var(--purple)}
 
 /* ── GOOGLE-STYLE STARS (slide 5.0 stat-card) ── */
 .g-stars{display:inline-flex;gap:1px;font-size:0;line-height:1;vertical-align:middle}
@@ -646,7 +645,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   .stat-grid{grid-template-columns:1fr}
   .tags-row{gap:6px}
   .tag{font-size:12px;padding:6px 12px}
-  .speaker-pill{flex-direction:column;text-align:center;padding:14px}
+  .speaker-pill{flex-direction:column;text-align:center;padding:20px 28px;border-radius:28px;max-width:88%}
+  .speaker-pill .rl{white-space:normal;font-size:12px;line-height:1.4}
   .int-grid{grid-template-columns:1fr}
   .nav-logo .nav-text{display:none}
   #timer-badge{display:inline-flex;font-size:11px;padding:4px 10px}
