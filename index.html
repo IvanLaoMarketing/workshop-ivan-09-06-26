@@ -447,16 +447,20 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .hard .tom-header{background:linear-gradient(135deg,var(--purple-l),#E5DEFF)}.hard .tom-header h4{color:var(--purple)}.hard .tom-dot{background:var(--purple)}
 
 /* ── ERRORI ── */
-.err-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:1100px}
-.err-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;box-shadow:var(--shadow-s);display:grid;grid-template-columns:70px 1fr 1fr;gap:20px;align-items:center;transition:all .25s}
+.err-grid{display:flex;flex-direction:column;gap:18px;width:100%;max-width:1180px;margin:0 auto}
+.err-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow-s);display:grid;grid-template-columns:90px 1fr 1fr;gap:28px;align-items:center;transition:all .25s;text-align:left}
 .err-card:hover{transform:translateX(6px);box-shadow:var(--shadow-m)}
-.err-n{font-family:'Outfit',sans-serif;font-size:52px;font-weight:900;color:var(--orange-m);line-height:1;letter-spacing:-3px}
-.err-wrong{padding:14px 16px;background:var(--red-l);border-radius:var(--r-s);border:1px solid var(--red-m)}
-.err-wrong .tg{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
-.err-wrong p{font-size:13px;color:#7F1D1D;line-height:1.5;font-weight:500}
-.err-ok{padding:14px 16px;background:var(--wa-l);border-radius:var(--r-s);border:1px solid var(--wa-m)}
-.err-ok .tg{background:var(--wa);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
-.err-ok p{font-size:13px;color:#14532D;line-height:1.5;font-weight:500}
+.err-n{font-family:'Outfit',sans-serif;font-size:64px;font-weight:900;color:var(--orange-m);line-height:1;letter-spacing:-3px}
+.err-wrong,.err-ok{position:relative;padding:18px 20px 18px 20px;border-radius:var(--r-s);margin-top:14px}
+.err-wrong{background:var(--red-l);border:1px solid var(--red-m)}
+.err-ok{background:var(--wa-l);border:1px solid var(--wa-m)}
+.err-emoji{position:absolute;top:-22px;left:14px;width:44px;height:44px;border-radius:50%;background:var(--white);border:2px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 12px rgba(0,0,0,.12);z-index:2}
+.err-wrong .err-emoji{color:var(--red)}
+.err-ok .err-emoji{color:var(--wa-d)}
+.err-wrong .tg{background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:4px 12px 4px 50px;border-radius:20px;margin-bottom:10px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.err-wrong p{font-size:14px;color:#7F1D1D;line-height:1.55;font-weight:500}
+.err-ok .tg{background:var(--wa-d);color:#fff;font-size:12px;font-weight:700;padding:4px 12px 4px 50px;border-radius:20px;margin-bottom:10px;display:inline-block;text-transform:uppercase;letter-spacing:.5px}
+.err-ok p{font-size:14px;color:#14532D;line-height:1.55;font-weight:500}
 
 /* ── SERVIZI ── */
 .serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:100%}
@@ -1731,24 +1735,24 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 
 <!-- ══ S33: ERRORI ══ -->
 <div class="slide" id="s33">
-  <div class="si">
-    <div class="label anim-up">⚠️ Attenzione</div>
-    <h2 class="med anim-up d1" style="margin-bottom:20px">I 3 errori che fanno fallire<br><span style="color:var(--orange)">ogni progetto di automazione</span></h2>
+  <div class="si" style="text-align:center">
+    <div class="label anim-up" style="justify-content:center">⚠️ Attenzione</div>
+    <h2 class="med anim-up d1" style="margin-bottom:28px">I 3 errori che fanno fallire<br><span style="color:var(--orange)">ogni progetto di automazione</span></h2>
     <div class="err-grid">
       <div class="err-card anim-up d2">
         <div class="err-n">01</div>
-        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"Uso Claude solo come chatbot per scrivere testi e idee"</p></div>
-        <div class="err-ok"><span class="tg">✅ Soluzione</span><p>Claude è un <strong>agente operativo</strong>. Attiva Cowork, dagli accesso a una cartella e assegnagli task concreti da eseguire.</p></div>
+        <div class="err-wrong"><span class="err-emoji">❌</span><span class="tg">Errore</span><p>"Uso Claude solo come chatbot per scrivere testi e idee"</p></div>
+        <div class="err-ok"><span class="err-emoji">✅</span><span class="tg">Soluzione</span><p>Claude è un <strong>agente operativo</strong>. Attiva Cowork, dagli accesso a una cartella e assegnagli task concreti da eseguire.</p></div>
       </div>
       <div class="err-card anim-up d3">
         <div class="err-n">02</div>
-        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"Voglio automatizzare tutto subito, in tutta l'azienda"</p></div>
-        <div class="err-ok"><span class="tg">✅ Soluzione</span><p><strong>Inizia da 1 workflow.</strong> Ottimizzalo per 2 settimane, misura i risultati, poi aggiungi il secondo.</p></div>
+        <div class="err-wrong"><span class="err-emoji">❌</span><span class="tg">Errore</span><p>"Voglio automatizzare tutto subito, in tutta l'azienda"</p></div>
+        <div class="err-ok"><span class="err-emoji">✅</span><span class="tg">Soluzione</span><p><strong>Inizia da 1 workflow.</strong> Ottimizzalo per 2 settimane, misura i risultati, poi aggiungi il secondo.</p></div>
       </div>
       <div class="err-card anim-up d4">
         <div class="err-n">03</div>
-        <div class="err-wrong"><span class="tg">❌ Errore</span><p>"L'AI fa tutto da sola, non devo controllare niente"</p></div>
-        <div class="err-ok"><span class="tg">✅ Soluzione</span><p><strong>L'AI sbaglia.</strong> Imposta revisione obbligatoria per azioni che toccano clienti o denaro.</p></div>
+        <div class="err-wrong"><span class="err-emoji">❌</span><span class="tg">Errore</span><p>"L'AI fa tutto da sola, non devo controllare niente"</p></div>
+        <div class="err-ok"><span class="err-emoji">✅</span><span class="tg">Soluzione</span><p><strong>L'AI sbaglia.</strong> Imposta revisione obbligatoria per azioni che toccano clienti o denaro.</p></div>
       </div>
     </div>
   </div>
