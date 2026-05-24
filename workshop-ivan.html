@@ -581,6 +581,27 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 .wa-phone-bar .name{font-size:14px}
 
 /* ══════════════════════════════════════════
+   FOOTER SLIDE 4 (dati azienda)
+   ══════════════════════════════════════════ */
+.s4-business-info{margin-top:28px;padding-top:18px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;letter-spacing:.2px;line-height:1.5}
+.s4-business-info strong{color:var(--text);font-weight:600}
+
+/* ══════════════════════════════════════════
+   CHECKLIST DOWNLOAD SLIDE (nuovo s34)
+   ══════════════════════════════════════════ */
+.checklist-card{max-width:720px;margin:24px auto 0;background:#fff;border:1px solid var(--border);border-radius:24px;padding:44px 48px;box-shadow:0 24px 70px rgba(15,23,42,.08);text-align:center;position:relative;overflow:hidden}
+.checklist-card::before{content:"";position:absolute;inset:-50% -10% auto auto;width:280px;height:280px;background:radial-gradient(circle,rgba(249,115,22,.18),transparent 70%);pointer-events:none}
+.checklist-icon{font-size:48px;margin-bottom:14px;position:relative;z-index:1}
+.checklist-card h3{font-size:28px;line-height:1.2;margin:0 0 10px;color:var(--text);position:relative;z-index:1}
+.checklist-card .checklist-sub{font-size:16px;color:var(--muted);margin-bottom:24px;position:relative;z-index:1}
+.checklist-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 24px;text-align:left;position:relative;z-index:1}
+.checklist-bullets li{font-size:15px;color:var(--text);padding-left:26px;position:relative;line-height:1.45}
+.checklist-bullets li::before{content:"✓";position:absolute;left:0;top:0;color:var(--orange);font-weight:700}
+.checklist-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--orange),#EA580C);color:#fff;padding:16px 34px;border-radius:14px;font-weight:600;font-size:17px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 12px 32px rgba(249,115,22,.32);position:relative;z-index:1}
+.checklist-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(249,115,22,.4)}
+.checklist-meta{margin-top:14px;font-size:12px;color:var(--muted);position:relative;z-index:1}
+
+/* ══════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════ */
 @media(max-width:1200px){
@@ -655,9 +676,18 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   #dots .dot.active{width:18px;height:5px}
   #botnav{justify-content:space-between;padding:0 14px;gap:8px}
   .nbtn{width:44px;height:44px;font-size:18px;flex-shrink:0}
-  /* punto 7: bottone CTA s37 a due righe mobile */
-  #s37 .cta-btn{flex-direction:column;gap:2px;padding:14px 26px;line-height:1.2}
-  #s37 .cta-btn .cta-line2{font-size:14px;opacity:.92}
+  /* punto 7: bottone CTA s38 a due righe mobile */
+  #s38 .cta-btn{flex-direction:column;gap:2px;padding:14px 26px;line-height:1.2}
+  #s38 .cta-btn .cta-line2{font-size:14px;opacity:.92}
+  /* checklist slide mobile */
+  .checklist-card{padding:28px 22px;margin-top:14px}
+  .checklist-card h3{font-size:22px}
+  .checklist-bullets{grid-template-columns:1fr;gap:8px;margin-bottom:22px}
+  .checklist-bullets li{font-size:14px}
+  .checklist-btn{padding:14px 24px;font-size:15px}
+  .checklist-icon{font-size:40px}
+  /* footer s4 mobile */
+  .s4-business-info{font-size:11px;margin-top:20px;padding-top:14px;line-height:1.6}
   /* punto 12: spacing emoji new-badge slide 15 */
   .new-badge{gap:8px;padding:4px 12px}
   /* fix mobile overflow: cover-wrap pseudo aura ridotta */
@@ -688,7 +718,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
   <div class="nav-right">
     <div id="timer-badge">⏱ 60 min</div>
-    <div id="counter">1 / 37</div>
+    <div id="counter">1 / 38</div>
   </div>
 </div>
 
@@ -782,6 +812,9 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
           <span class="spec">WhatsApp Marketing</span><span class="spec">Automazione Funnel</span><span class="spec">Integrazioni SaaS</span><span class="spec">AI & Chatbot</span><span class="spec">Customer Journey</span><span class="spec">Reportistica KPI</span>
         </div>
       </div>
+    </div>
+    <div class="s4-business-info anim-up d6">
+      <strong>laoivan.com</strong> · Viale Spartaco Lavagnini, 8 Firenze 50129 (FI) · P.IVA: 04121830246
     </div>
   </div>
 </div>
@@ -1758,8 +1791,34 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S34: SERVIZI ══ -->
+<!-- ══ S34: CHECKLIST DOWNLOAD ══ -->
 <div class="slide" id="s34">
+  <div class="si" style="text-align:center">
+    <div class="label anim-up" style="justify-content:center">🎁 Bonus per te</div>
+    <h2 class="med anim-up d1" style="margin-bottom:10px">Scarica la checklist<br><span style="color:var(--orange)">"Da Dove Iniziare"</span></h2>
+    <p class="sub anim-up d2" style="margin-bottom:8px;max-width:640px;margin-left:auto;margin-right:auto">La guida pratica che ti accompagna passo passo nei primi workflow di automazione AI per la tua azienda.</p>
+    <div class="checklist-card anim-up d3">
+      <div class="checklist-icon">📋</div>
+      <h3>Checklist · Da Dove Iniziare</h3>
+      <div class="checklist-sub">Un PDF operativo per identificare il primo workflow giusto per te.</div>
+      <ul class="checklist-bullets">
+        <li>Capisci dove perdi il tempo</li>
+        <li>Scegli il modulo giusto: Cowork, Small Business o WhatsApp + Claude</li>
+        <li>Setup tecnico: 60 minuti, una volta sola</li>
+        <li>Costruisci la prima automazione, questa settimana</li>
+        <li>Espandi solo quando il primo flusso regge</li>
+        <li>Audit gratuito di 30 minuti</li>
+      </ul>
+      <a class="checklist-btn" href="Checklist_Da_Dove_Iniziare.pdf" download>
+        ⬇️ Scarica la checklist (PDF)
+      </a>
+      <div class="checklist-meta">Gratis · Nessuna registrazione richiesta</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ S35: SERVIZI ══ -->
+<div class="slide" id="s35">
   <div class="si">
     <div class="label anim-up">🚀 I miei servizi</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Cosa posso fare <span style="color:var(--orange)">per la tua azienda</span></h2>
@@ -1805,8 +1864,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S35: TESTIMONIANZE ══ -->
-<div class="slide" id="s35">
+<!-- ══ S36: TESTIMONIANZE ══ -->
+<div class="slide" id="s36">
   <div class="si">
     <div class="label anim-up">⭐ Testimonianze</div>
     <h2 class="med anim-up d1">Cosa dicono i <span style="color:var(--orange)">miei clienti</span></h2>
@@ -1877,8 +1936,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S36: PIANI ══ -->
-<div class="slide" id="s36">
+<!-- ══ S37: PIANI ══ -->
+<div class="slide" id="s37">
   <div class="si">
     <div class="label anim-up">💼 Come lavoriamo insieme</div>
     <h2 class="med anim-up d1" style="margin-bottom:6px">Tre modalità, <span style="color:var(--orange)">un obiettivo</span></h2>
@@ -1938,8 +1997,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   </div>
 </div>
 
-<!-- ══ S37: CTA ══ -->
-<div class="slide" id="s37">
+<!-- ══ S38: CTA ══ -->
+<div class="slide" id="s38">
   <div class="cta-layout">
     <div class="cta-photo anim-up d1">
       <img src="https://laoivan.netlify.app/images/ivan-lao.jpg" alt="Ivan Lao">
@@ -1972,7 +2031,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <script>
-const TOTAL = 37;
+const TOTAL = 38;
 let cur = 1, d1r = false, d2r = false, d3r = false;
 
 function goTo(n) {
@@ -1999,7 +2058,7 @@ function updateDots() {
     d.onclick = () => goTo(i); dc.appendChild(d);
   }
 }
-const timings = [0,1,1,2,2,2,3,1,1,1,2,3,2,1,2,2,1,2,1,3,1,2,2,2,2,2,2,2,1,3,1,1,2,1,1,1,1];
+const timings = [0,1,1,2,2,2,3,1,1,1,2,3,2,1,2,2,1,2,1,3,1,2,2,2,2,2,2,2,1,2,1,1,2,1,1,1,1,1];
 function updateTimer() {
   const elapsed = timings.slice(0, cur).reduce((a,b)=>a+b,0);
   const rem = Math.max(0, 60 - elapsed);
