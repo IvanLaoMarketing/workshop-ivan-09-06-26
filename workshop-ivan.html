@@ -42,9 +42,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);ove
 #timer-badge{font-size:13px;color:var(--muted);background:var(--light);padding:6px 14px;border-radius:20px;border:1px solid var(--border);font-weight:500}
 
 #slides{position:fixed;top:64px;left:0;right:0;bottom:66px;overflow:hidden}
-.slide{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:40px 60px;background:var(--bg);opacity:0;transform:translateX(60px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-.slide.active{opacity:1;transform:translateX(0);pointer-events:all;z-index:2}
-.slide.exit{opacity:0;transform:translateX(-60px)}
+/* FIX crash/reload mobile (causa reale): le 38 slide erano tutte nel render tree
+   (inattive solo opacity:0) -> 38 schermate full-viewport dipinte insieme saturavano
+   la memoria della GPU mobile -> il renderer crashava (elementi spariscono) e Brave
+   ricaricava la tab in loop. content-visibility:hidden fa saltare del tutto il render
+   delle slide non attive: dipinge solo la slide attiva (+ quella in uscita). */
+.slide{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;padding:40px 60px;background:var(--bg);opacity:0;transform:translateX(60px);transition:opacity .4s ease,transform .4s ease;pointer-events:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;content-visibility:hidden}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;z-index:2;content-visibility:visible}
+.slide.exit{opacity:0;transform:translateX(-60px);content-visibility:visible}
 
 #botnav{position:fixed;bottom:0;left:0;right:0;height:66px;display:flex;align-items:center;justify-content:center;gap:18px;background:rgba(249,247,244,.95);backdrop-filter:blur(14px);border-top:1px solid var(--border);z-index:100}
 .nbtn{width:46px;height:46px;border-radius:50%;border:1px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text);transition:all .2s;box-shadow:var(--shadow-s)}
