@@ -671,6 +671,12 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 }
 
 @media(max-width:600px){
+  /* FIX testo che sparisce su mobile (Brave/Chromium): il testo con gradiente ritagliato
+     (-webkit-background-clip:text + color:transparent) su molte GPU mobile viene reso
+     trasparente = invisibile. Su mobile uso arancione brand SOLIDO (visivamente quasi
+     identico al gradiente) garantito visibile. Desktop invariato. */
+  .cover-h1 em,.cta-content h2 em{background:none!important;-webkit-text-fill-color:var(--orange)!important;color:var(--orange)!important}
+  .piano-mesi-n{background:none!important;-webkit-text-fill-color:var(--orange)!important;color:var(--orange)!important}
   .slide{padding:20px 14px}
   h2.med{font-size:26px}
   .stat-grid{grid-template-columns:1fr}
