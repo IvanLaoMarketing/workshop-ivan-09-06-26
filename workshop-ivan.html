@@ -707,6 +707,12 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
   .connect-flash{width:60px;height:60px}
   .connect-link{width:90px;height:4px}
   .connect-spark{font-size:24px}
+  /* FIX reload/crash mobile (Brave): backdrop-filter blur su barre fixed +
+     animazioni infinite continue saturano memoria/GPU mobile -> tab killata e ricaricata.
+     Bg gia' a .95 -> reso opaco senza blur (impatto visivo nullo); stop loop continui. */
+  #topnav,#botnav{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+  .cover-wrap::before,.transition-icon,.cw-step.running .cw-step-icn,
+  .new-badge,.input-cursor,.fn-arrow.lit{animation:none!important}
 }
 </style>
 </head>
