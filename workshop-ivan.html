@@ -112,6 +112,15 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 #videoDock:not(.hero){right:14px;bottom:80px;left:auto;transform:none;width:clamp(190px,46vw,310px);border-radius:14px;overflow:hidden}
 #videoDock:not(.hero) .vd-top,#videoDock:not(.hero) .vd-bot{display:none}
 #videoDock:not(.hero) .vd-ratio{border-radius:0}
+/* Maniglia di ridimensionamento (solo mini-player). Larghezza guida l'altezza
+   via aspect-ratio 16:9, quindi basta trascinare in orizzontale. */
+.vd-resize{position:absolute;left:0;bottom:0;z-index:5;width:30px;height:30px;display:none;align-items:flex-end;justify-content:flex-start;padding:5px;cursor:nesw-resize;touch-action:none}
+.vd-resize::before{content:'';width:15px;height:15px;border-left:3px solid rgba(255,255,255,.95);border-bottom:3px solid rgba(255,255,255,.95);border-bottom-left-radius:4px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.55))}
+#videoDock:not(.hero) .vd-resize{display:flex}
+/* Scudo trasparente sopra l'iframe: attivo solo durante il drag, così l'iframe
+   YouTube non "cattura" il puntatore e il resize resta fluido. */
+.vd-shield{position:absolute;inset:0;z-index:6;display:none;cursor:nesw-resize}
+#videoDock.resizing .vd-shield{display:block}
 
 /* Hint animato: invito a scorrere le slide. Niente sfondo/pillola (non deve
    sembrare un bottone): solo testo + freccia verticale arancione che scende. */
@@ -2089,6 +2098,8 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
     <div class="vd-ratio">
       <iframe src="https://www.youtube.com/embed/9QC_dTsI9Jg" title="Registrazione Workshop" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
+    <div class="vd-shield"></div>
+    <div class="vd-resize" id="vdResize" title="Trascina per ridimensionare" aria-hidden="true"></div>
   </div>
   <div class="vd-bot">
     <span class="badge o">📅 9 Giugno 2026</span>
@@ -2109,6 +2120,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 <script>
 const TOTAL = 38;
 let cur = 1, d1r = false, d2r = false, d3r = false;
+let miniWidth = null; // larghezza scelta dall'utente per il mini-player (px)
 
 function goTo(n) {
   if (n < 1 || n > TOTAL) return;
@@ -2129,9 +2141,44 @@ function goTo(n) {
 function updateVideoDock() {
   const dock = document.getElementById('videoDock');
   if (!dock) return;
-  if (cur === 1) { dock.classList.add('hero'); showScrollHint(); }
-  else { dock.classList.remove('hero'); hideScrollHint(); }
+  if (cur === 1) { dock.classList.add('hero'); dock.style.width = ''; showScrollHint(); }
+  else { dock.classList.remove('hero'); if (miniWidth) dock.style.width = miniWidth + 'px'; hideScrollHint(); }
 }
+
+// Ridimensionamento del mini-player: si trascina la maniglia in basso a sinistra.
+// La larghezza guida l'altezza (aspect-ratio 16:9), quindi conta lo spostamento
+// orizzontale. Pointer Events -> stesso codice per mouse, touch e penna.
+(function () {
+  const dock = document.getElementById('videoDock');
+  const grip = document.getElementById('vdResize');
+  if (!dock || !grip) return;
+  let startX = 0, startW = 0, dragging = false;
+  const MIN = 160;
+  const maxW = () => Math.min(560, window.innerWidth * 0.92);
+  function onMove(e) {
+    if (!dragging) return;
+    let w = startW + (startX - e.clientX); // trascina verso sinistra = piu' grande
+    w = Math.max(MIN, Math.min(maxW(), w));
+    miniWidth = Math.round(w);
+    if (!dock.classList.contains('hero')) dock.style.width = miniWidth + 'px';
+    e.preventDefault();
+  }
+  function onUp() {
+    dragging = false;
+    dock.classList.remove('resizing');
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+  }
+  grip.addEventListener('pointerdown', e => {
+    dragging = true;
+    startX = e.clientX;
+    startW = dock.getBoundingClientRect().width;
+    dock.classList.add('resizing');
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    e.preventDefault(); e.stopPropagation();
+  });
+})();
 // Hint "Scorri le slide": appare sulla slide 1 e sparisce dopo qualche secondo
 // o appena l'utente scorre la prima volta.
 let shTimer = null;
@@ -2173,7 +2220,7 @@ document.addEventListener('keydown', e => {
 });
 let tx = 0, ty = 0, tt = 0;
 document.addEventListener('touchstart', e => {
-  if (e.target.closest('button, a, input, textarea, .nbtn')) return;
+  if (e.target.closest('button, a, input, textarea, .nbtn, #videoDock')) return;
   tx = e.changedTouches[0].screenX;
   ty = e.changedTouches[0].screenY;
   tt = Date.now();
