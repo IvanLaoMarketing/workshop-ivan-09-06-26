@@ -113,11 +113,12 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 #videoDock:not(.hero) .vd-top,#videoDock:not(.hero) .vd-bot{display:none}
 #videoDock:not(.hero) .vd-ratio{border-radius:0}
 
-/* Hint animato: invito a scorrere le slide, appare sulla slide 1 e poi sparisce */
-#scrollHint{position:fixed;z-index:95;left:50%;bottom:84px;transform:translateX(-50%) translateY(10px);display:flex;align-items:center;gap:9px;background:var(--text);color:#fff;padding:11px 20px;border-radius:40px;box-shadow:var(--shadow-m);font-weight:700;font-size:15px;opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease}
-#scrollHint.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#scrollHint .sh-arrow{display:inline-block;font-size:19px;animation:shArrow 1.1s ease-in-out infinite}
-@keyframes shArrow{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
+/* Hint animato: invito a scorrere le slide. Niente sfondo/pillola (non deve
+   sembrare un bottone): solo testo + freccia verticale arancione che scende. */
+#scrollHint{position:fixed;z-index:95;left:50%;bottom:78px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--orange);font-weight:700;font-size:14px;letter-spacing:.3px;text-shadow:0 1px 6px rgba(249,247,244,.9);opacity:0;pointer-events:none;transition:opacity .4s ease}
+#scrollHint.show{opacity:1}
+#scrollHint .sh-arrow{display:block;color:var(--orange);animation:shArrow 1.2s ease-in-out infinite}
+@keyframes shArrow{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(9px);opacity:1}}
 
 /* ── S2: PRIVACY ── */
 .privacy-wrap{text-align:center;max-width:1000px;width:100%}
@@ -2097,7 +2098,7 @@ p.sub{font-size:22px;color:var(--muted);line-height:1.6;margin-bottom:28px;max-w
 </div>
 
 <!-- Invito animato a scorrere le slide (appare sulla slide 1, poi sparisce) -->
-<div id="scrollHint"><span>Scorri le slide</span><span class="sh-arrow">→</span></div>
+<div id="scrollHint"><span>Scorri le slide</span><svg class="sh-arrow" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
 
 <div id="botnav">
   <button class="nbtn" id="prevBtn" onclick="prevSlide()" disabled>←</button>
